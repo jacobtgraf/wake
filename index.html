@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
+  <meta name="apple-mobile-web-app-title" content="Jacob & Ryan ✈"/>
+  <title>Jacob & Ryan — April 2026</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈️</text></svg>"/>
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0%25' stop-color='%230055d4'/><stop offset='100%25' stop-color='%2330a0ff'/></linearGradient></defs><rect width='180' height='180' rx='38' fill='url(%23g)'/><text x='90' y='128' font-size='96' text-anchor='middle'>✈️</text></svg>"/>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #f2f2f7;
+      --card:         #ffffff;
+      --text:         #1c1c1e;
+      --text2:        #636366;
+      --text3:        #aeaeb2;
+      --border:       #e5e5ea;
+      --sep:          #d1d1d6;
+
+      --blue:         #0071e3;
+      --blue-bg:      #e8f1fd;
+      --purple:       #6d3fd6;
+      --purple-bg:    #f0ecfd;
+      --amber:        #b45309;
+      --amber-bg:     #fef3c7;
+      --green:        #059669;
+      --green-bg:     #d1fae5;
+      --teal:         #0891b2;
+      --teal-bg:      #cffafe;
+      --red:          #dc2626;
+      --red-bg:       #fee2e2;
+      --orange:       #d97706;
+      --orange-bg:    #fde68a;
+    }
+
+    html { -webkit-text-size-adjust: 100%; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding-bottom: 40px;
+    }
+
+    /* ─── STICKY HEADER ─── */
+    .app-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(242,242,247,0.85);
+      -webkit-backdrop-filter: blur(20px);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--sep);
+      padding: 12px 16px 10px;
+    }
+    .header-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1;
+    }
+    .header-sub {
+      font-size: 12px;
+      color: var(--text2);
+      margin-top: 2px;
+    }
+
+    /* ─── UP NEXT HERO ─── */
+    #upnext {
+      margin: 12px 12px 6px;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .upnext-card {
+      background: linear-gradient(135deg, #0055d4, #30a0ff);
+      padding: 16px;
+      color: #fff;
+    }
+    .upnext-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      opacity: 0.8;
+      margin-bottom: 6px;
+    }
+    .upnext-title {
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 3px;
+    }
+    .upnext-detail {
+      font-size: 13px;
+      opacity: 0.85;
+      line-height: 1.5;
+    }
+    .upnext-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .upnext-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      background: rgba(255,255,255,0.2);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.3);
+      -webkit-tap-highlight-color: transparent;
+      white-space: nowrap;
+    }
+    .upnext-btn:active { opacity: 0.7; }
+
+    /* ─── DAYS ─── */
+    .days { padding: 6px 12px 0; }
+
+    .day { margin-bottom: 10px; }
+
+    .day-toggle {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0;
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      -webkit-tap-highlight-color: transparent;
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .day-header {
+      width: 100%;
+      display: flex;
+      align-items: stretch;
+      border-radius: 14px;
+      overflow: hidden;
+      min-height: 60px;
+    }
+
+    .day-color-bar {
+      width: 8px;
+      flex-shrink: 0;
+    }
+
+    .day-header-inner {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: none;
+      border-radius: 0 14px 14px 0;
+    }
+
+    .day-date-block { display: flex; flex-direction: column; }
+    .day-name { font-size: 11px; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: 0.4px; }
+    .day-date { font-size: 20px; font-weight: 800; color: var(--text); line-height: 1; }
+    .day-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+    .day-location { font-size: 13px; font-weight: 600; color: var(--text); }
+    .day-chevron { font-size: 12px; color: var(--text3); transition: transform 0.2s; }
+
+    .day.open .day-chevron { transform: rotate(90deg); }
+
+    .day.today .day-header-inner {
+      border-color: #0071e3;
+      box-shadow: 0 0 0 1px #0071e3 inset;
+    }
+    .day.today .day-name { color: #0071e3; }
+    .day.today .day-date { color: #0071e3; }
+
+    .day.past .day-header-inner { background: #fafafa; }
+    .day.past .day-date { color: var(--text3); }
+    .day.past .day-name { color: var(--text3); }
+    .day.past .day-location { color: var(--text3); }
+
+    /* color bars per destination */
+    .color-bar-departure { background: #636366; }
+    .color-bar-miami     { background: linear-gradient(180deg, #ff6b35, #f7931e); }
+    .color-bar-transit   { background: linear-gradient(180deg, #5b2c6f, #8e44ad); }
+    .color-bar-london    { background: linear-gradient(180deg, #154360, #1a6fd8); }
+    .color-bar-bath      { background: linear-gradient(180deg, #0e6655, #1e8449); }
+    .color-bar-cotswolds { background: linear-gradient(180deg, #78281f, #c0392b); }
+    .color-bar-wedding   { background: linear-gradient(180deg, #78281f, #c0392b); }
+    .color-bar-paris     { background: linear-gradient(180deg, #4a235a, #7d3c98); }
+    .color-bar-home      { background: linear-gradient(180deg, #1c2e4a, #2e4057); }
+
+    /* Day body */
+    .day-body {
+      display: none;
+      padding: 8px 0 0;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .day.open .day-body { display: flex; }
+
+    /* ─── EVENT CARDS ─── */
+    .card {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 12px 14px;
+      border-left: 4px solid var(--border);
+    }
+
+    .card.flight  { border-left-color: var(--blue); }
+    .card.hotel   { border-left-color: var(--purple); }
+    .card.event   { border-left-color: var(--amber); }
+    .card.food    { border-left-color: var(--green); }
+    .card.travel  { border-left-color: var(--teal); }
+    .card.wedding { border-left-color: var(--red); }
+    .card.door    { border-left-color: var(--orange); background: #fffbeb; }
+    .card.warn    { border-left-color: var(--red); background: #fff5f5; }
+    .card.free    { border-left-color: var(--border); }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+    .tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+    }
+    .tag-flight  { background: var(--blue-bg);   color: var(--blue); }
+    .tag-hotel   { background: var(--purple-bg);  color: var(--purple); }
+    .tag-event   { background: var(--amber-bg);   color: var(--amber); }
+    .tag-food    { background: var(--green-bg);   color: var(--green); }
+    .tag-travel  { background: var(--teal-bg);    color: var(--teal); }
+    .tag-wedding { background: var(--red-bg);     color: var(--red); }
+    .tag-door    { background: var(--orange-bg);  color: var(--orange); }
+    .tag-warn    { background: var(--red-bg);     color: var(--red); }
+
+    .card-time {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text2);
+      white-space: nowrap;
+      margin-left: 8px;
+    }
+    .card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      margin: 2px 0 3px;
+      line-height: 1.3;
+    }
+    .card-detail {
+      font-size: 13px;
+      color: var(--text2);
+      line-height: 1.5;
+    }
+    .card-detail + .card-detail { margin-top: 0; }
+
+    /* Door code */
+    .door-code {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 8px;
+      padding: 10px 14px;
+      background: var(--orange-bg);
+      border-radius: 8px;
+    }
+    .door-code-label { font-size: 12px; font-weight: 600; color: var(--orange); }
+    .door-code-number {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--text);
+      font-family: 'SF Mono', 'Courier New', monospace;
+      letter-spacing: 4px;
+    }
+
+    /* Warning banner */
+    .warn-banner {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+      padding: 8px 10px;
+      background: var(--red-bg);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--red);
+    }
+
+    /* ─── CHIPS ─── */
+    .refs { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 10px;
+      border-radius: 6px;
+      background: var(--bg);
+      border: 1px solid var(--sep);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text2);
+      font-family: 'SF Mono', 'Courier New', monospace;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      letter-spacing: 0.3px;
+      user-select: none;
+    }
+    .chip::after { content: ' ⎘'; font-size: 10px; opacity: 0.5; }
+    .chip.copied { background: var(--green-bg); color: var(--green); border-color: var(--green); }
+    .chip.copied::after { content: ' ✓'; opacity: 1; }
+
+    /* ─── ACTION BUTTONS ─── */
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 10px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      min-height: 36px;
+      white-space: nowrap;
+      -webkit-tap-highlight-color: transparent;
+      transition: opacity 0.1s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn:active { opacity: 0.7; }
+    .btn-delta  { background: var(--blue-bg);   color: var(--blue); }
+    .btn-gmail  { background: var(--purple-bg);  color: var(--purple); }
+    .btn-maps   { background: var(--green-bg);   color: var(--green); }
+    .btn-web    { background: var(--amber-bg);   color: var(--amber); }
+    .btn-train  { background: var(--teal-bg);    color: var(--teal); }
+
+    /* ─── SECTION LABEL ─── */
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      color: var(--text3);
+      padding: 10px 2px 4px;
+    }
+
+    /* ─── EMPTY CARD ─── */
+    .card-free {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 12px 14px;
+      border: 1px dashed var(--sep);
+      font-size: 13px;
+      color: var(--text3);
+      font-style: italic;
+      text-align: center;
+    }
+
+    /* Desktop centering */
+    @media (min-width: 540px) {
+      .app-header { max-width: 500px; margin: 0 auto; }
+      #upnext, .days { max-width: 500px; margin-left: auto; margin-right: auto; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     STICKY HEADER
+═══════════════════════════════════════════════ -->
+<header class="app-header">
+  <div class="header-title">✈ Jacob &amp; Ryan · April 2026</div>
+  <div class="header-sub" id="currentCity">San Francisco → Miami · London · Bath · Cotswolds · Paris</div>
+</header>
+
+<!-- ═══════════════════════════════════════════════
+     UP NEXT (filled by JS)
+═══════════════════════════════════════════════ -->
+<div id="upnext"></div>
+
+<!-- ═══════════════════════════════════════════════
+     DAYS
+═══════════════════════════════════════════════ -->
+<div class="days" id="days">
+
+  <!-- ─────────────────────────────────────── -->
+  <!-- APR 2 · SAN FRANCISCO DEPARTURE        -->
+  <!-- ─────────────────────────────────────── -->
+  <div class="day" data-date="2026-04-02" id="day-0402">
+    <button class="day-toggle" onclick="toggleDay('day-0402')" aria-expanded="false">
+      <div class="day-header">
+        <div class="day-color-bar color-bar-departure"></div>
+        <div class="day-header-inner">
+          <div class="day-date-block">
+            <span class="day-name">Thursday</span>
+            <span class="day-date">Apr 2</span>
+          </div>
+          <div class="day-right">
+            <span class="day-location">🏠 San Francisco</span>
+            <span class="day-chevron">▶</span>
+          </div>
+        </div>
+      </div>
+    </button>
+    <div class="day-body">
+      <div class="section-label">Evening</div>
+      <div class="card flight">
+        <div class="card-top"><span class="tag tag-flight">Flight</span><span class="card-time">9:30 PM PDT</span></div>
+        <div class="card-title">✈ SFO → Fort Lauderdale</div>
+        <div class="card-detail">United UA 1230 · Arrives 6:09 AM EDT (Apr 3)</div>
+        <div class="card-detail">Jacob: 30A · Ryan: 30B</div>
+        <div class="refs">
+          <span class="chip" onclick="copyChip(this,'DHEXJD')">DHEXJD</span>
+        </div>
+        <div class="btn-row">
+          <a class="btn btn-delta" href="https://www.delta.com/MyTrips">✈ Open Delta</a>
+          <a class="btn btn-maps" href="https://maps.apple.com/?q=San+Francisco+International+Airport+SFO">📍 SFO</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────── -->
+  <!-- APR 3 · ARRIVE MIAMI                   -->
+  <!-- ─────────────────────────────────────── -->
+  <div class="day" data-date="2026-04-03" id="day-0403">
+    <button class="day-toggle" onclick="toggleDay('day-0403')" aria-expanded="false">
+      <div class="day-header">
+        <div class="day-color-bar color-bar-miami"></div>
+        <div class="day-header-inner">
+          <div class="day-date-block">
+            <span class="day-name">Friday</span>
+            <span class="day-date">Apr 3</span>
+          </div>
+          <div class="day-right">
+            <span class="day-location">🌴 Miami</span>
+            <span class="day-chevron">▶</span>
+          </div>
+        </div>
+      </div>
+    </button>
+    <div class="day-body">
+      <div class="section-label">Morning</div>
+      <div class="card flight">
+        <div class="card-top"><span class="tag tag-flight">Arrive</span><span class="card-time">6:09 AM EDT</span></div>
+        <div class="card-title">Land Fort Lauderdale</div>
+        <div class="card-detail">UA 1230 · Jacob &amp; Ryan</div>
+      </div>
+      <div class="card hotel">
+        <div class="card-top"><span class="tag tag-hotel">Hotel</span><span class="card-time">Check-in from 4 PM</span></div>
+        <div class="card-title">Pestana South Beach Miami</div>
+        <div class="card-detail">1817 James Ave, Miami Beach, FL</div>
+        <div class="card-detail">Superior King · Pool View · Apr 3–6</div>
+        <div class="refs">
+          <span class="chip" onclick="copyChip(this,'26020281774')">26020281774</span>
+        </div>
+        <div class="btn-row">
+          <a class="btn btn-maps" href="https://maps.apple.com/?q=Pestana+South+Beach+Miami+1817+James+Ave+Miami+Beach">📍 View on Map</a>
+        </div>
+      </div>
+      <div class="section-label">Afternoon</div>
+      <div class="card event">
+        <div class="card-top"><span class="tag tag-event">Hyrox</span></div>
+        <div class="card-title">🏋️ Hyrox Miami — Day 1</div>
+        <div class="card-detail">Ryan competing · Jacob spectating</div>
+        <div class="btn-row">
+          <a class="btn btn-gmail" href="https://mail.google.com/mail/u/0/#inbox/19d1bcaf1719b71c">📧 Spectator Tickets</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────── -->
+  <!-- APR 4 · HYROX RACE DAY                 -->
+  <!-- ─────────────────────────────────────── -->
+  <div class="day" data-date="2026-04-04" id="day-0404">
+    <button class="day-toggle" onclick="toggleDay('day-0404')" aria-expanded="false">
+      <div class="day-header">
+        <div class="day-color-bar color-bar-miami"></div>
+        <div class="day-header-inner">
+          <div class="day-date-block">
+            <span class="day-name">Saturday</span>
+            <span class="day-date">Apr 4</span>
+          </div>
+          <div class="day-right">
+            <span class="day-location">🌴 Miami</span>
+            <span class="day-chevron">▶</span>
+          </div>
+        </div>
+      </div>
+    </button>
+    <div class="day-body">
+      <div class="card event">
+        <div class="card-top"><span class="tag tag-event">Race Day</span></div>
+        <div class="card-title">🏋️ Hyrox Miami — Ryan Competes!</div>
+        <div class="card-detail">Ryan Fitzgerald competing 💪</div>
+        <div class="card-detail">Jacob spectating</div>
+        <div class="btn-row">
+          <a class="btn btn-gmail" href="https://mail.google.com/mail/u/0/#inbox/19d1bcaf1719b71c">📧 Spectator Tickets</a>
+        </div>
+      </div>
+      <div class="card-free">Celebrate after! 🎉</div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────── -->
+  <!-- APR 5 · LAST DAY MIAMI                 -->
+  <!-- ─────────────────────────────────────── -->
+  <div class="day" data-date="2026-04-05" id="day-0405">
+    <button class="day-toggle" onclick="toggleDay('day-0405')" aria-expanded="false">
+      <div class="day-header">
+        <div class="day-color-bar color-bar-miami"></div>
+        <div class="day-header-inner">
+          <div class="day-date-block">
+            <span class="day-name">Sunday</span>
+            <span class="day-date">Apr 5</span>
+          </div>
+          <div class="day-right">
+            <span class="day-location">🌴 Miami</span>
+            <span class="day-chevron">▶</span>
+          </div>
+        </div>
+      </div>
+    </button>
+    <div class="day-body">
+      <div class="card event">
+        <div class="card-top"><span class="tag tag-event">Hyrox</span></div>
+        <div class="card-title">Hyrox Miami — Day 3</div>
+        <div class="card-detail">Final day of the event</div>
+      </div>
+      <div class="card-free">Last night in Miami 🌅</div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────── -->
+  <!-- APR 6 · FLY TO LONDON (TODAY)          -->
+  <!-- ─────────────────────────────────────── -->
+  <div class="day" data-date="2026-04-06" id="day-0406">
+    <button class="day-toggle" onclick="toggleDay('day-0406')" aria-expanded="false">
+      <div class="day-header">
+        <div class="day-color-bar color-bar-transit"></div>
+        <div class="day-header-inner">
+          <div class="day-date-block">
+            <span class="day-name">Monday</span>
+            <span class="day-date">Apr 6</span>
+          </div>
+          <div class="day-right">
+            <span class="day-location">✈ MIA → LHR</span>
+            <span class="day-chevron">▶</span>
+          </div>
+        </div>
+      </div>
+    </button>
+    <div class="day-body">
+      <div class="section-label">Morning</div>
+      <div class="card hotel">
+        <div class="card-top"><span class="tag tag-hotel">Check Out</span><span class="card-time">Before 11 AM</span></div>
+        <div class="card-title">Check out — Pestana South Beach</div>
+        <div class="card-detail">Return keys · Pack for London</div>
+      </div>
+
+      <div class="section-label">Evening</div>
+      <div class="card flight">
+        <div class="card-top"><span class="tag tag-flight">Flight</span><span class="card-time">6:25 PM EDT</span></div>
+        <div class="card-title">✈ Miami → London Heathrow</div>
+        <div class="card-detail">DL 5966 operated by Virgin Atlantic</div>
+        <div class="card-detail">Arrives 8:05 AM BST (Apr 7)</div>
+        <div class="card-detail">Jacob: seat 58B · Ryan: seat 58A</div>
+        <div class="refs">
+          <span class="chip" onclick="copyChip(this,'F77XBA')">F77XBA</span>
+        </div>
+        <div class="btn-row">
+          <a class="btn btn-delta" href="https://www.delta.com/MyTrips">✈ Open Delta</a>
+          <a class="btn btn-gmail" href="https://mail.google.com/mail/u/0/#inbox/19d5fc0e246cc461">📧 Confirmation</a>
+          <a class="btn btn-maps" href="https://maps.apple.com/?q=Miami+International+Airport+MIA">📍 Miami Airport</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────── -->
+  <!-- APR 7 · ARRIVE LONDON                  -->
+  <!-- ─────────────────────────────────────── -->
+  <div class="day" data-date="2026-04-07" id="day-0407">
+    <button class="day-toggle" onclick="toggleDay('day-0407')" aria-expanded="false">
+      <div class="day-header">
+        <div class="day-color-bar color-bar-london"></div>
+        <div class="day-header-inner">
+          <div class="day-date-block">
+            <span class="day-name">Tuesday</span>
+            <span class="day-date">Apr 7</span>
+          </div>
+          <div class="day-right">
+            <span class="day-location">🇬🇧 London</span>
+            <span class="day-chevron">▶</span>
+          </div>
+        </div>
+      </div>
+    </button>
+    <div class="day-body">
+      <div class="section-label">Morning</div>
+      <div class="card flight">
+        <div class="card-top"><span class="tag tag-flight">Arrive</span><span class="card-time">8:05 AM BST</span></div>
+        <div class="card-title">Land London Heathrow</div>
+        <div class="card-detail">DL 5966 · Terminal 3</div>
+        <div class="btn-row">
+          <a class="btn btn-delta" href="https://www.delta.com/MyTrips">✈ Open Delta</a>
+          <a class="btn btn-maps" href="https://maps.apple.com/?q=London+Heathrow+Airport+LHR">📍 Heathrow</a>
+        </div>
+      </div>
+
+      <div class="section-label">Afternoon — Check In</div>
+      <div class="card hotel">
+        <div class="card-top"><span class="tag tag-hotel">Kindred Stay</span><span class="card-time">After 4 PM</span></div>
+        <div class="card-title">Sandy's, London</div>
+        <div class="card-detail">Unit 11 · 10 Montagu Mews South</div>
+        <div class="card-detail">Marylebone · W1H 7ER · Apr 7–12</div>
+        <div class="card-detail">Near Bond Street &amp; Marble Arch tube</div>
+        <div class="door-code">
+          <div>
+            <div class="door-code-label">🔐 Lockbox Code</div>
+            <div class="door-code-number">1340</div>
+          </div>
+        </div>
+        <div class="btn-row">
+          <a class="btn btn-gmail" href="https://mail.google.com/mail/u/0/#inbox/19d6220ecdd39389">📧 Home Guide</a>
+          <a class="btn btn-maps" href="https://maps.apple.com/?q=10+Montagu+Mews+South+London+W1H+7ER">📍 View on Map</a>
+        </div>
+      </div>
+
+      <div class="section-label">Evening</div>
+      <div class="card food">
+        <div class="card-top"><span class="tag tag-food">Dinner</span><span class="card-time">7:00 PM BST</span></div>
+        <div class="card-title">🍽 Fallow Restaurant</div>
+        <div class="card-detail">52 Haymarket, London SW1Y 4RP</div>
+        <div class="card-detail">2 guests</div>
+        <div class="refs">
+          <span class="chip" onclick="copyChip(this,'3YWXGL6DLSNN')">3YWXGL6DLSNN</span>
+        </div>
+        <div class="btn-row">
+          <a class="btn btn-gmail" href="https://mail.google.com/mail/u/0/#inbox/19d5d1e03ba0daf3">📧 Reservation</a>
+          <a class="btn btn-maps" href="https://maps.apple.com/?q=Fallow+Restaurant+52+Haymarket+London+SW1Y+4RP">📍 View on Map</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────── -->
+  <!-- APR 8 · BATH DAY TRIP                  -->
+  <!-- ─────────────────────────────────────── -->
+  <div class="day" data-date="2026-04-08" id="day-0408">
+    <button class="day-toggle" onclick="toggleDay('day-0408')" aria-expanded="false">
+      <div class="day-header">
+        <div class="day-color-bar color-bar-bath"></div>
+        <div class="day-header-inner">
+          <div class="day-date-block">
+            <span class="day-name">Wednesday</span>
+            <span class="day-date">Apr 8</span>
+          </div>
+          <div class="day-right">
+            <span class="day-location">🛁 Bath Day Trip</span>
+            <span class="day-chevron">▶</span>
+          </div>
+        </div>
+      </div>
+    </button>
+    <div class="day-body">
+      <div class="section-label">Early Morning</div>
+      <div class="card travel">
+        <div class="card-top"><span class="tag tag-travel">Train</span><span class="card-time">Departs 6:28 AM BST</span></div>
+        <div class="card-title">🚂 London Paddington → Bath Spa</div>
+        <div class="card-detail">GWR · Arrives 7:44 AM · Coach A, Seats 13 &amp; 14</div>
+        <div class="refs">
+          <span class="chip" onclick="copyChip(this,'B-GWR-ERL0JAU3G')">B-GWR-ERL0JAU3G</span>
+        </div>
+        <div class="btn-row">
+          <a class="btn btn-train" href="https://mail.google.com/mail/u/0/#inbox/19d22ef42abc7ced">🎟 View Tickets</a>
+          <a class="btn btn-maps" href="https://maps.apple.com/?q=London+Paddington+Station">📍 Paddington</a>
+        </div>
+      </div>
+
+      <div class="section-label">Morning</div>
+      <div class="card event">
+        <div class="card-top"><span class="tag tag-event">Booked</span><span class="card-time">9:15 AM BST</span></div>
+        <div class="card-title">🏛 Roman Baths</div>
+        <div class="card-detail">2 adult tickets · £53</div>
+        <div class="refs">
+          <span class="chip" onclick="copyChip(this,'RBOYDP1TXZRDM')">RBOYDP1TXZRDM</span>
+        </div>
+        <div class="btn-row">
+          <a class="btn btn-gmail" href="https://mail.google.com/mail/u/0/#inbox/19d22ebd3da5f12f">📧 Tickets</a>
+          <a class="btn btn-maps" href="https://maps.apple.com/?q=Roman+Baths+Bath+Abbey+Churchyard+BA1+1LZ">📍 View on Map</a>
+        </div>
+      </div>
+
+      <div class="section-label">Lunch</div>
+      <div class="card food">
+        <div class="card-top"><span class="tag tag-food">Lunch</span><span class="card-time">12:30 PM BST</span></div>
+        <div class="card-title">🍽 La Terra</div>
+        <div class="card-detail">2 John St, Bath BA1 2JL · Table until 2:20 PM</div>
+        <div class="card-detail">2 guests</div>
+        <div class="refs">
+          <span class="chip" onclick="copyChip(this,'BNK36TL9')">BNK36TL9</span>
+        </div>
+        <div class="btn-row">
+          <a class="btn btn-gmail" href="https://mail.google.com/mail/u/0/#inbox/19d22f482aa4d0ea">📧 Reservation</a>
+          <a class="btn btn-maps" href="https://maps.apple.com/?q=La+Terra+2+John+Street+Bath+BA1+2JL">📍 View on Map</a>
+        </div>
+      </div>
+
+      <div class="section-label">Afternoon</div>
+      <div class="card event">
+        <div class="card-top"><span class="tag tag-event">Booked</span><span class="card-time">4:30 PM BST</span></div>
+        <div class="card-title">♨️ Thermae Bath Spa</div>
+        <div class="card-detail">Hot Bath St, Bath BA1 1SJ</div>
+        <div class="refs">
+          <span class="chip" onclick="copyChip(this,'1963102')">#1963102</span>
+        </div>
+        <div class="btn-row">
+          <a class="btn btn-web" href="https://www.thermaebathspa.com/user/login">🌐 Thermae Login</a>
+          <a class="btn btn-maps" href="https://maps.apple.com/?q=Thermae+Bath+Spa+Hot+Bath+Street+Bath+BA1+1SJ">📍 View on Map</a>
+        </div>
+      </div>
+
+      <div class="section-label">Evening</div>
+      <div class="card travel">
+        <div class="card-top"><span class="tag tag-travel">Train</span><span class="card-time">Departs 7:43 PM BST</span></div>
+        <div class="card-title">🚂 Bath Spa → London Paddington</div>
+        <div class="card-detail">GWR · Arrives 9:08 PM · Coach A, Seats 27 &amp; 28</div>
+        <div class="btn-row">
+          <a class="btn btn-train" href="https://mail.google.com/mail/u/0/#inbox/19d22ef42abc7ced">🎟 View Tickets</a>
+          <a class="btn btn-maps" href="https://maps.apple.com/?q=Bath+Spa+Railway+Station">📍 Bath Spa Station</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────── -->
+  <!-- APR 9 · LONDON + DISHOOM               -->
+  <!-- ─────────────────────────────────────── -->
+  <div class="day" data-date="2026-04-09" id="day-0409">
+    <button class="day-toggle" onclick="toggleDay('day-0409')" aria-expanded="false">
+      <div class="day-header">
+        <div class="day-color-bar color-bar-london"></div>
+        <div class="day-header-inner">
+          <div class="day-date-block">
+            <span class="day-name">Thursday</span>
+            <span class="day-date">Apr 9</span>
+          </div>
+          <div class="day-right">
+            <span class="day-location">🇬🇧 London</span>
+            <span class="day-chevron">▶</span>
+          </div>
+        </div>
+      </div>
+    </button>
+    <div class="day-body">
+      <div class="card-free">Free day — explore London ☕</div>
+      <div class="section-label">Evening</div>
+      <div class="card food">
+        <div class="card-top"><span class="tag tag-food">Dinner</span><span class="card-time">9:00 PM BST</span></div>
+        <div class="card-title">🍽 Dishoom Carnaby</div>
+        <div class="card-detail">22 Kingly St, London W1B 5QP</div>
+        <div class="card-detail">8 guests · Ryan's booking</div>
+        <div class="refs">
+          <span class="chip" onclick="copyChip(this,'8EH6NT35UUCF')">8EH6NT35UUCF</span>
+        </div>
+        <div class="btn-row">
+          <a class="btn btn-gmail" href="https://mail.google.com/mail/u/0/#inbox/19d2298a4ecdb7a9">📧 Reservation</a>
+          <a class="btn btn-maps" href="https://maps.apple.com/?q=Dishoom+Carnaby+22+Kingly+Street+London+W1B+5QP">📍 View on Map</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────── -->
+  <!-- APR 10 · COTSWOLDS / WEDDING           -->
+  <!-- ─────────────────────────────────────── -->
+  <div class="day" data-date="2026-04-10" id="day-0410">
+    <button class="day-toggle" onclick="toggleDay('day-0410')" aria-expanded="false">
+      <div class="day-header">
+        <div class="day-color-bar color-bar-cotswolds"></div>
+        <div class="day-header-inner">
+          <div class="day-date-block">
+            <span class="day-name">Friday</span>
+            <span class="day-date">Apr 10</span>
+          </div>
+          <div class="day-right">
+            <span class="day-location">🌿 Cotswolds</span>
+            <span class="day-chevron">▶</span>
+          </div>
+        </div>
+      </div>
+    </button>
+    <div class="day-body">
+      <div class="card-free">Last morning in London</div>
+      <div class="section-label">Afternoon</div>
+      <div class="card travel">
+        <div class="card-top"><span class="tag tag-travel">Car</span><span class="card-time">12:00 PM BST</span></div>
+        <div class="card-title">🚗 Enterprise Pickup — London</div>
+        <div class="card-detail">NCP Car Park, 170 Marylebone Rd, NW1 5AR</div>
+        <div class="card-detail">Nissan Qashqai (Automatic) · Drive to Grittleton</div>
+        <div class="card-detail">A friend returns car to Heathrow Apr 12</div>
+        <div class="refs">
+          <span class="chip" onclick="copyChip(this,'2101387643')">2101387643</span>
+        </div>
+        <div class="btn-row">
+          <a class="btn btn-gmail" href="https://mail.google.com/mail/u/0/#inbox/19d2e0038583934f">📧 Rental Confirmation</a>
+          <a class="btn btn-maps" href="https://maps.apple.com/?q=NCP+Car+Park+170+Marylebone+Road+London+NW1+5AR">📍 NCP Marylebone</a>
+        </div>
+      </div>
+
+      <div class="section-label">Evening</div>
+      <div class="card wedding">
+        <div class="card-top"><span class="tag tag-wedding">Wedding</span></div>
+        <div class="card-title">Arrive Grittleton House</div>
+        <div class="card-detail">The Stables, Grittleton, Wiltshire SN14 6AP</div>
+        <div class="card-detail">Francesca &amp; Keith's wedding weekend</div>
+        <div class="btn-row">
+          <a class="btn btn-maps" href="https://maps.apple.com/?q=Grittleton+House+Grittleton+Wiltshire+SN14+6AP">📍 Grittleton House</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────── -->
+  <!-- APR 11 · WEDDING DAY                   -->
+  <!-- ─────────────────────────────────────── -->
+  <div class="day" data-date="2026-04-11" id="day-0411">
+    <button class="day-toggle" onclick="toggleDay('day-0411')" aria-expanded="false">
+      <div class="day-header">
+        <div class="day-color-bar color-bar-wedding"></div>
+        <div class="day-header-inner">
+          <div class="day-date-block">
+            <span class="day-name">Saturday</span>
+            <span class="day-date">Apr 11</span>
+          </div>
+          <div class="day-right">
+            <span class="day-location">💍 Wedding Day</span>
+            <span class="day-chevron">▶</span>
+          </div>
+        </div>
+      </div>
+    </button>
+    <div class="day-body">
+      <div class="card wedding">
+        <div class="card-top"><span class="tag tag-wedding">Wedding</span></div>
+        <div class="card-title">💐 Francesca &amp; Keith</div>
+        <div class="card-detail">Grittleton House &amp; The Stables</div>
+        <div class="card-detail">Ceremony · Reception · Dinner · Dancing 🎉</div>
+        <div class="btn-row">
+          <a class="btn btn-maps" href="https://maps.apple.com/?q=Grittleton+House+Grittleton+Wiltshire+SN14+6AP">📍 Grittleton House</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────── -->
+  <!-- APR 12 · PARIS DAY                     -->
+  <!-- ─────────────────────────────────────── -->
+  <div class="day" data-date="2026-04-12" id="day-0412">
+    <button class="day-toggle" onclick="toggleDay('day-0412')" aria-expanded="false">
+      <div class="day-header">
+        <div class="day-color-bar color-bar-paris"></div>
+        <div class="day-header-inner">
+          <div class="day-date-block">
+            <span class="day-name">Sunday</span>
+            <span class="day-date">Apr 12</span>
+          </div>
+          <div class="day-right">
+            <span class="day-location">🇫🇷 Paris</span>
+            <span class="day-chevron">▶</span>
+          </div>
+        </div>
+      </div>
+    </button>
+    <div class="day-body">
+      <div class="section-label">Morning</div>
+      <div class="card hotel">
+        <div class="card-top"><span class="tag tag-hotel">Check Out</span></div>
+        <div class="card-title">Check out — Grittleton House</div>
+        <div class="card-detail">Cab/rideshare to Chippenham station</div>
+      </div>
+      <div class="card travel">
+        <div class="card-top"><span class="tag tag-travel">Train</span><span class="card-time">~9:45–10:00 AM BST</span></div>
+        <div class="card-title">🚂 Chippenham → London Paddington</div>
+        <div class="card-detail">GWR · ~1 hr · Tube/cab to St Pancras after</div>
+        <div class="btn-row">
+          <a class="btn btn-maps" href="https://maps.apple.com/?q=Chippenham+Railway+Station">📍 Chippenham Station</a>
+        </div>
+      </div>
+
+      <div class="section-label">Midday</div>
+      <div class="card travel">
+        <div class="card-top"><span class="tag tag-travel">Eurostar</span><span class="card-time">Departs 12:31 BST</span></div>
+        <div class="card-title">🚄 St Pancras → Paris Gare du Nord</div>
+        <div class="card-detail">Arrives 4:01 PM Paris time (CEST)</div>
+        <div class="card-detail">Jacob: Coach 5, Seat 52 · Ryan: Coach 5, Seat 51</div>
+        <div class="warn-banner">⏰ Arrive St Pancras by 11:16 AM</div>
+        <div class="refs">
+          <span class="chip" onclick="copyChip(this,'6DJ26K')">6DJ26K</span>
+        </div>
+        <div class="btn-row">
+          <a class="btn btn-train" href="https://mail.google.com/mail/u/0/#inbox/19d41c5424f63226">🎟 Eurostar Tickets</a>
+          <a class="btn btn-maps" href="https://maps.apple.com/?q=St+Pancras+International+Station+London">📍 St Pancras</a>
+        </div>
+      </div>
+
+      <div class="section-label">Afternoon — Check In</div>
+      <div class="card hotel">
+        <div class="card-top"><span class="tag tag-hotel">Hotel</span><span class="card-time">Apr 12–14</span></div>
+        <div class="card-title">Hôtel Le Pigalle</div>
+        <div class="card-detail">9 Rue Frochot, 75009 Paris · Room: Pigalle 35</div>
+        <div class="card-detail">City tax paid at checkout</div>
+        <div class="refs">
+          <span class="chip" onclick="copyChip(this,'65706SG045052')">65706SG045052</span>
+        </div>
+        <div class="btn-row">
+          <a class="btn btn-gmail" href="https://mail.google.com/mail/u/0/#inbox/19d08f1fe518d26c">📧 Confirmation</a>
+          <a class="btn btn-maps" href="https://maps.apple.com/?q=Hotel+Le+Pigalle+9+Rue+Frochot+Paris+75009">📍 View on Map</a>
+        </div>
+      </div>
+
+      <div class="section-label">Evening</div>
+      <div class="card event">
+        <div class="card-top"><span class="tag tag-event">Booked</span><span class="card-time">7:30 PM CEST</span></div>
+        <div class="card-title">🗼 Eiffel Tower — 2nd Floor + Champagne</div>
+        <div class="card-detail">2 adults · Lift access to 2nd floor · 🥂</div>
+        <div class="refs">
+          <span class="chip" onclick="copyChip(this,'262010165929')">262010165929</span>
+        </div>
+        <div class="btn-row">
+          <a class="btn btn-gmail" href="https://mail.google.com/mail/u/0/#inbox/19d25d8b060481e5">📧 Tickets</a>
+          <a class="btn btn-maps" href="https://maps.apple.com/?q=Eiffel+Tower+Paris+75007">📍 Eiffel Tower</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────── -->
+  <!-- APR 13 · PARIS                         -->
+  <!-- ─────────────────────────────────────── -->
+  <div class="day" data-date="2026-04-13" id="day-0413">
+    <button class="day-toggle" onclick="toggleDay('day-0413')" aria-expanded="false">
+      <div class="day-header">
+        <div class="day-color-bar color-bar-paris"></div>
+        <div class="day-header-inner">
+          <div class="day-date-block">
+            <span class="day-name">Monday</span>
+            <span class="day-date">Apr 13</span>
+          </div>
+          <div class="day-right">
+            <span class="day-location">🗼 Paris</span>
+            <span class="day-chevron">▶</span>
+          </div>
+        </div>
+      </div>
+    </button>
+    <div class="day-body">
+      <div class="section-label">Morning</div>
+      <div class="card event">
+        <div class="card-top"><span class="tag tag-event">Booked</span></div>
+        <div class="card-title">🖼 Musée du Louvre</div>
+        <div class="card-detail">2 adults · Nominative e-tickets</div>
+        <div class="warn-banner">🪪 Bring photo ID — tickets are non-transferable</div>
+        <div class="refs">
+          <span class="chip" onclick="copyChip(this,'C260900001308')">C260900001308</span>
+          <span class="chip" onclick="copyChip(this,'V26078735832')">V26078735832</span>
+        </div>
+        <div class="btn-row">
+          <a class="btn btn-gmail" href="https://mail.google.com/mail/u/0/#inbox/19d41c085807775b">📧 Tickets</a>
+          <a class="btn btn-maps" href="https://maps.apple.com/?q=Musee+du+Louvre+Paris+75001">📍 Louvre</a>
+        </div>
+      </div>
+
+      <div class="section-label">Afternoon</div>
+      <div class="card-free">Explore Paris ☕ Montmartre · Le Marais</div>
+
+      <div class="section-label">Evening</div>
+      <div class="card food">
+        <div class="card-top"><span class="tag tag-food">Dinner</span><span class="card-time">8:30 PM CEST</span></div>
+        <div class="card-title">🍽 Ardent Paris</div>
+        <div class="card-detail">40 Rue Richer, 75009 Paris</div>
+        <div class="card-detail">2 guests · Window table · Anniversary 🥂</div>
+        <div class="refs">
+          <span class="chip" onclick="copyChip(this,'1733397499')">1733397499</span>
+        </div>
+        <div class="btn-row">
+          <a class="btn btn-gmail" href="https://mail.google.com/mail/u/0/#inbox/19d1e452d3046bf8">📧 Reservation</a>
+          <a class="btn btn-maps" href="https://maps.apple.com/?q=Ardent+Paris+40+Rue+Richer+75009">📍 View on Map</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────── -->
+  <!-- APR 14 · FLY HOME                      -->
+  <!-- ─────────────────────────────────────── -->
+  <div class="day" data-date="2026-04-14" id="day-0414">
+    <button class="day-toggle" onclick="toggleDay('day-0414')" aria-expanded="false">
+      <div class="day-header">
+        <div class="day-color-bar color-bar-home"></div>
+        <div class="day-header-inner">
+          <div class="day-date-block">
+            <span class="day-name">Tuesday</span>
+            <span class="day-date">Apr 14</span>
+          </div>
+          <div class="day-right">
+            <span class="day-location">🏠 Fly Home</span>
+            <span class="day-chevron">▶</span>
+          </div>
+        </div>
+      </div>
+    </button>
+    <div class="day-body">
+      <div class="section-label">Morning</div>
+      <div class="card hotel">
+        <div class="card-top"><span class="tag tag-hotel">Check Out</span><span class="card-time">Before 11 AM</span></div>
+        <div class="card-title">Check out — Hôtel Le Pigalle</div>
+        <div class="card-detail">City tax due at checkout · Transfer to CDG</div>
+      </div>
+      <div class="card flight">
+        <div class="card-top"><span class="tag tag-flight">Flight</span><span class="card-time">10:20 AM CEST</span></div>
+        <div class="card-title">✈ Paris CDG → San Francisco</div>
+        <div class="card-detail">DL 8726 operated by Air France</div>
+        <div class="card-detail">Arrives 12:50 PM PDT · Jacob: seat 33J</div>
+        <div class="refs">
+          <span class="chip" onclick="copyChip(this,'F77XBA')">F77XBA</span>
+        </div>
+        <div class="btn-row">
+          <a class="btn btn-delta" href="https://www.delta.com/MyTrips">✈ Open Delta</a>
+          <a class="btn btn-gmail" href="https://mail.google.com/mail/u/0/#inbox/19bb0639bc202d70">📧 Itinerary</a>
+          <a class="btn btn-maps" href="https://maps.apple.com/?q=Paris+Charles+de+Gaulle+Airport+CDG">📍 CDG Airport</a>
+        </div>
+      </div>
+
+      <div class="section-label">Afternoon — Home!</div>
+      <div class="card flight">
+        <div class="card-top"><span class="tag tag-flight">Arrive</span><span class="card-time">12:50 PM PDT</span></div>
+        <div class="card-title">Land SFO</div>
+        <div class="card-detail">Welcome home 🎉 What a trip.</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /days -->
+
+<!-- ═══════════════════════════════════════════════
+     SCRIPT
+═══════════════════════════════════════════════ -->
+<script>
+  // ── Event data for "Up Next" calculation ─────────────────────────────────
+  // Timestamps are UTC. Local time + timezone shown for display only.
+  var events = [
+    { ts:'2026-04-06T22:25:00Z', title:'✈ MIA → London Heathrow',   detail:'DL 5966 (Virgin Atlantic) · 6:25 PM EDT · Seats 58B & 58A',
+      btns:[{cls:'upnext-btn', href:'https://www.delta.com/MyTrips', label:'✈ Open Delta'},
+            {cls:'upnext-btn', href:'https://mail.google.com/mail/u/0/#inbox/19d5fc0e246cc461', label:'📧 Confirmation'},
+            {cls:'upnext-btn', href:'https://maps.apple.com/?q=Miami+International+Airport+MIA', label:'📍 Miami Airport'}]},
+    { ts:'2026-04-07T07:05:00Z', title:'Land Heathrow — 8:05 AM BST', detail:'DL 5966 · Welcome to London 🇬🇧',
+      btns:[{cls:'upnext-btn', href:'https://www.delta.com/MyTrips', label:'✈ Open Delta'}]},
+    { ts:'2026-04-07T15:00:00Z', title:'Check In — Sandy\'s London',   detail:'Unit 11 · 10 Montagu Mews S, W1H 7ER · Door code: 1340',
+      btns:[{cls:'upnext-btn', href:'https://mail.google.com/mail/u/0/#inbox/19d6220ecdd39389', label:'📧 Home Guide'},
+            {cls:'upnext-btn', href:'https://maps.apple.com/?q=10+Montagu+Mews+South+London+W1H+7ER', label:'📍 Sandy\'s'}]},
+    { ts:'2026-04-07T18:00:00Z', title:'🍽 Fallow Restaurant',         detail:'52 Haymarket, London · 7:00 PM BST · 2 guests',
+      btns:[{cls:'upnext-btn', href:'https://mail.google.com/mail/u/0/#inbox/19d5d1e03ba0daf3', label:'📧 Reservation'},
+            {cls:'upnext-btn', href:'https://maps.apple.com/?q=Fallow+Restaurant+52+Haymarket+London', label:'📍 Fallow'}]},
+    { ts:'2026-04-08T05:28:00Z', title:'🚂 Paddington → Bath Spa',     detail:'GWR · Departs 6:28 AM BST · Coach A Seats 13 & 14',
+      btns:[{cls:'upnext-btn', href:'https://mail.google.com/mail/u/0/#inbox/19d22ef42abc7ced', label:'🎟 View Tickets'},
+            {cls:'upnext-btn', href:'https://maps.apple.com/?q=London+Paddington+Station', label:'📍 Paddington'}]},
+    { ts:'2026-04-08T08:15:00Z', title:'🏛 Roman Baths',               detail:'Entry 9:15 AM BST · 2 adults',
+      btns:[{cls:'upnext-btn', href:'https://mail.google.com/mail/u/0/#inbox/19d22ebd3da5f12f', label:'📧 Tickets'}]},
+    { ts:'2026-04-08T11:30:00Z', title:'🍽 La Terra',                  detail:'2 John St, Bath · 12:30 PM BST · 2 guests',
+      btns:[{cls:'upnext-btn', href:'https://mail.google.com/mail/u/0/#inbox/19d22f482aa4d0ea', label:'📧 Reservation'}]},
+    { ts:'2026-04-08T15:30:00Z', title:'♨️ Thermae Bath Spa',          detail:'Hot Bath St, Bath · 4:30 PM BST',
+      btns:[{cls:'upnext-btn', href:'https://www.thermaebathspa.com/user/login', label:'🌐 Thermae Login'}]},
+    { ts:'2026-04-08T18:43:00Z', title:'🚂 Bath Spa → Paddington',     detail:'Departs 7:43 PM BST · Coach A Seats 27 & 28',
+      btns:[{cls:'upnext-btn', href:'https://mail.google.com/mail/u/0/#inbox/19d22ef42abc7ced', label:'🎟 View Tickets'}]},
+    { ts:'2026-04-09T20:00:00Z', title:'🍽 Dishoom Carnaby',           detail:'22 Kingly St, London · 9:00 PM BST · 8 guests',
+      btns:[{cls:'upnext-btn', href:'https://mail.google.com/mail/u/0/#inbox/19d2298a4ecdb7a9', label:'📧 Reservation'},
+            {cls:'upnext-btn', href:'https://maps.apple.com/?q=Dishoom+Carnaby+22+Kingly+Street+London', label:'📍 Dishoom'}]},
+    { ts:'2026-04-10T11:00:00Z', title:'🚗 Enterprise Car Pickup',     detail:'NCP 170 Marylebone Rd · 12:00 PM BST · Nissan Qashqai',
+      btns:[{cls:'upnext-btn', href:'https://mail.google.com/mail/u/0/#inbox/19d2e0038583934f', label:'📧 Rental'},
+            {cls:'upnext-btn', href:'https://maps.apple.com/?q=NCP+Car+Park+170+Marylebone+Road+London', label:'📍 NCP'}]},
+    { ts:'2026-04-10T17:00:00Z', title:'💍 Arrive Grittleton House',   detail:'Wiltshire · Francesca & Keith wedding weekend',
+      btns:[{cls:'upnext-btn', href:'https://maps.apple.com/?q=Grittleton+House+Grittleton+Wiltshire+SN14+6AP', label:'📍 Grittleton'}]},
+    { ts:'2026-04-11T11:00:00Z', title:'💐 Francesca & Keith — Wedding Day', detail:'Grittleton House & The Stables · Ceremony & Reception',
+      btns:[]},
+    { ts:'2026-04-12T10:16:00Z', title:'🚄 Eurostar Check-In Deadline', detail:'Arrive St Pancras by 11:16 AM BST · Coach 5: Jacob Seat 52, Ryan Seat 51',
+      btns:[{cls:'upnext-btn', href:'https://mail.google.com/mail/u/0/#inbox/19d41c5424f63226', label:'🎟 Eurostar Tickets'},
+            {cls:'upnext-btn', href:'https://maps.apple.com/?q=St+Pancras+International+Station+London', label:'📍 St Pancras'}]},
+    { ts:'2026-04-12T13:00:00Z', title:'🏨 Check In — Hôtel Le Pigalle', detail:'9 Rue Frochot, 75009 Paris · Room: Pigalle 35',
+      btns:[{cls:'upnext-btn', href:'https://mail.google.com/mail/u/0/#inbox/19d08f1fe518d26c', label:'📧 Confirmation'},
+            {cls:'upnext-btn', href:'https://maps.apple.com/?q=Hotel+Le+Pigalle+9+Rue+Frochot+Paris+75009', label:'📍 Le Pigalle'}]},
+    { ts:'2026-04-12T17:30:00Z', title:'🗼 Eiffel Tower',              detail:'7:30 PM CEST · 2nd floor by lift + champagne 🥂',
+      btns:[{cls:'upnext-btn', href:'https://mail.google.com/mail/u/0/#inbox/19d25d8b060481e5', label:'📧 Tickets'},
+            {cls:'upnext-btn', href:'https://maps.apple.com/?q=Eiffel+Tower+Paris+75007', label:'📍 Eiffel Tower'}]},
+    { ts:'2026-04-13T08:00:00Z', title:'🖼 Musée du Louvre',           detail:'Bring photo ID — nominative tickets · 2 adults',
+      btns:[{cls:'upnext-btn', href:'https://mail.google.com/mail/u/0/#inbox/19d41c085807775b', label:'📧 Tickets'},
+            {cls:'upnext-btn', href:'https://maps.apple.com/?q=Musee+du+Louvre+Paris+75001', label:'📍 Louvre'}]},
+    { ts:'2026-04-13T18:30:00Z', title:'🍽 Ardent Paris',              detail:'40 Rue Richer, 75009 · 8:30 PM CEST · Window table · Anniversary',
+      btns:[{cls:'upnext-btn', href:'https://mail.google.com/mail/u/0/#inbox/19d1e452d3046bf8', label:'📧 Reservation'},
+            {cls:'upnext-btn', href:'https://maps.apple.com/?q=Ardent+Paris+40+Rue+Richer+75009', label:'📍 Ardent'}]},
+    { ts:'2026-04-14T08:20:00Z', title:'✈ Paris CDG → San Francisco', detail:'DL 8726 (Air France) · 10:20 AM CEST · Seat 33J',
+      btns:[{cls:'upnext-btn', href:'https://www.delta.com/MyTrips', label:'✈ Open Delta'},
+            {cls:'upnext-btn', href:'https://mail.google.com/mail/u/0/#inbox/19bb0639bc202d70', label:'📧 Itinerary'},
+            {cls:'upnext-btn', href:'https://maps.apple.com/?q=Paris+Charles+de+Gaulle+Airport+CDG', label:'📍 CDG'}]},
+  ];
+
+  // ── City schedule ─────────────────────────────────────────────────────────
+  var citySchedule = [
+    { from:'2026-04-02', to:'2026-04-02', label:'🏠 San Francisco → Miami' },
+    { from:'2026-04-03', to:'2026-04-05', label:'🌴 Miami' },
+    { from:'2026-04-06', to:'2026-04-06', label:'✈ En Route to London' },
+    { from:'2026-04-07', to:'2026-04-09', label:'🇬🇧 London' },
+    { from:'2026-04-10', to:'2026-04-11', label:'🌿 Cotswolds — Wedding' },
+    { from:'2026-04-12', to:'2026-04-13', label:'🇫🇷 Paris' },
+    { from:'2026-04-14', to:'2026-04-14', label:'✈ Heading Home' },
+  ];
+
+  // ── Helpers ───────────────────────────────────────────────────────────────
+  function todayStr() {
+    var d = new Date();
+    return d.toISOString().slice(0,10);
+  }
+
+  function getUpNext() {
+    var now = new Date();
+    var future = events.filter(function(e){ return new Date(e.ts) > now; });
+    future.sort(function(a,b){ return new Date(a.ts) - new Date(b.ts); });
+    return future[0] || null;
+  }
+
+  function getCurrentCity() {
+    var today = todayStr();
+    for (var i = 0; i < citySchedule.length; i++) {
+      var s = citySchedule[i];
+      if (today >= s.from && today <= s.to) return s.label;
+    }
+    return 'April 2026';
+  }
+
+  // ── Render "Up Next" ──────────────────────────────────────────────────────
+  function renderUpNext() {
+    var upnext = getUpNext();
+    var el = document.getElementById('upnext');
+    if (!upnext) {
+      el.innerHTML = '<div class="upnext-card" style="background:linear-gradient(135deg,#1c2e4a,#2e4057)"><div class="upnext-label">Trip complete</div><div class="upnext-title">Welcome home! 🎉</div><div class="upnext-detail">San Francisco → Miami → London → Bath → Cotswolds → Paris → San Francisco</div></div>';
+      return;
+    }
+    var btnHTML = upnext.btns.map(function(b){
+      return '<a class="' + b.cls + '" href="' + b.href + '">' + b.label + '</a>';
+    }).join('');
+    el.innerHTML = '<div class="upnext-card"><div class="upnext-label">▶ Up Next</div><div class="upnext-title">' + upnext.title + '</div><div class="upnext-detail">' + upnext.detail + '</div>' + (btnHTML ? '<div class="upnext-btns">' + btnHTML + '</div>' : '') + '</div>';
+  }
+
+  // ── Init days (collapse past, expand today) ───────────────────────────────
+  function initDays() {
+    var today = todayStr();
+    document.querySelectorAll('.day').forEach(function(day) {
+      var date = day.getAttribute('data-date');
+      if (date < today) {
+        day.classList.add('past');
+      } else if (date === today) {
+        day.classList.add('today', 'open');
+        day.querySelector('.day-toggle').setAttribute('aria-expanded', 'true');
+      }
+    });
+  }
+
+  // ── Toggle day accordion ──────────────────────────────────────────────────
+  function toggleDay(id) {
+    var day = document.getElementById(id);
+    var btn = day.querySelector('.day-toggle');
+    var isOpen = day.classList.contains('open');
+    day.classList.toggle('open', !isOpen);
+    btn.setAttribute('aria-expanded', !isOpen);
+  }
+
+  // ── Tap-to-copy chip ──────────────────────────────────────────────────────
+  function copyChip(chip, text) {
+    var done = function() {
+      chip.classList.add('copied');
+      setTimeout(function(){ chip.classList.remove('copied'); }, 2000);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(function(){
+        fallbackCopy(text, done);
+      });
+    } else {
+      fallbackCopy(text, done);
+    }
+  }
+
+  function fallbackCopy(text, done) {
+    var el = document.createElement('input');
+    el.value = text;
+    el.style.cssText = 'position:fixed;opacity:0;top:0;left:0;';
+    document.body.appendChild(el);
+    el.focus();
+    el.select();
+    el.setSelectionRange(0, text.length);
+    try { document.execCommand('copy'); done(); } catch(e) {}
+    document.body.removeChild(el);
+  }
+
+  // ── Current city header ───────────────────────────────────────────────────
+  function updateHeader() {
+    var sub = document.getElementById('currentCity');
+    if (sub) sub.textContent = getCurrentCity();
+  }
+
+  // ── Boot ──────────────────────────────────────────────────────────────────
+  initDays();
+  renderUpNext();
+  updateHeader();
+</script>
+</body>
+</html>
