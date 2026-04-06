@@ -15,13 +15,9 @@
       <a class="btn btn-maps" href="https://maps.apple.com/?q=Eiffel+Tower+Paris+75007" target="_blank" rel="noopener">📍 Eiffel Tower</a>
     </div>
   </div>
-  <div class="pdf-wrap">
-    <div class="pdf-label">🎟 Tickets</div>
-    <iframe class="pdf-frame" id="et-frame" title="Eiffel Tower Tickets"></iframe>
-    <div class="pdf-fallback" id="et-fallback" style="display:none">PDF not yet added — <a href="https://mail.google.com/mail/u/0/#inbox/19d25d8b060481e5" target="_blank" style="color:var(--amber)">open in Gmail</a></div>
-  </div>
+  <a class="btn btn-event" href="../tickets/eiffel-tower-tickets.pdf" target="_blank" rel="noopener">🎟 Open Tickets PDF</a>
 </div>
 <a class="footer-back" href="../index.html" onclick="history.length>1&&(event.preventDefault(),history.back())">← Back to Trip</a>
 <script>function copyChip(c,t){var d=function(){c.classList.add('copied');setTimeout(function(){c.classList.remove('copied')},2000)};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(d).catch(function(){fb(t,d)})}else fb(t,d)}function fb(t,d){var e=document.createElement('input');e.value=t;e.style.cssText='position:fixed;opacity:0;top:0;left:0';document.body.appendChild(e);e.focus();e.select();e.setSelectionRange(0,t.length);try{document.execCommand('copy');d()}catch(x){}document.body.removeChild(e)}
-(function(){var src='../tickets/eiffel-tower-tickets.pdf',fr=document.getElementById('et-frame'),fb=document.getElementById('et-fallback');fetch(src,{method:'HEAD'}).then(function(r){if(r.ok)fr.src=src;else{fr.style.display='none';fb.style.display='block';}}).catch(function(){fr.style.display='none';fb.style.display='block';});})();</script>
+</script>
 </body></html>
