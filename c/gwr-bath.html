@@ -19,13 +19,12 @@
   </div>
   <div class="pdf-wrap">
     <div class="pdf-label">🎟 Ticket</div>
-    <iframe class="pdf-frame" src="../tickets/gwr-bath.pdf" title="GWR Tickets" onerror="this.style.display='none';document.getElementById('gwr-fallback').style.display='block'"></iframe>
+    <iframe class="pdf-frame" id="gwr-frame" title="GWR Tickets"></iframe>
     <div class="pdf-fallback" id="gwr-fallback" style="display:none">PDF not yet added to repo — <a href="https://mail.google.com/mail/u/0/#inbox/19d22ef42abc7ced" target="_blank" style="color:var(--teal)">open in Gmail</a></div>
   </div>
 </div>
 <a class="footer-back" href="../index.html" onclick="history.length>1&&(event.preventDefault(),history.back())">← Back to Trip</a>
 <script>function copyChip(c,t){var d=function(){c.classList.add('copied');setTimeout(function(){c.classList.remove('copied')},2000)};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(d).catch(function(){fb(t,d)})}else fb(t,d)}function fb(t,d){var e=document.createElement('input');e.value=t;e.style.cssText='position:fixed;opacity:0;top:0;left:0';document.body.appendChild(e);e.focus();e.select();e.setSelectionRange(0,t.length);try{document.execCommand('copy');d()}catch(x){}document.body.removeChild(e)}
-// Show fallback if iframe fails to load PDF
-document.querySelector('.pdf-frame').addEventListener('load',function(){if(!this.contentDocument||this.contentDocument.title===''){}});
+(function(){var src='../tickets/gwr-bath.pdf',fr=document.getElementById('gwr-frame'),fb=document.getElementById('gwr-fallback');fetch(src,{method:'HEAD'}).then(function(r){if(r.ok)fr.src=src;else{fr.style.display='none';fb.style.display='block';}}).catch(function(){fr.style.display='none';fb.style.display='block';});})();
 setTimeout(function(){var f=document.querySelector('.pdf-frame');if(f.clientHeight<10)f.nextElementSibling.style.display='block';},2000);</script>
 </body></html>

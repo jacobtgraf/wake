@@ -16,11 +16,11 @@
   </div>
   <div class="pdf-wrap">
     <div class="pdf-label">🎟 Tickets</div>
-    <iframe class="pdf-frame" src="../tickets/roman-baths.pdf" title="Roman Baths Tickets"></iframe>
+    <iframe class="pdf-frame" id="rb-frame" title="Roman Baths Tickets"></iframe>
     <div class="pdf-fallback" id="rb-fallback" style="display:none">PDF not yet added — <a href="https://mail.google.com/mail/u/0/#inbox/19d22ebd3da5f12f" target="_blank" style="color:var(--amber)">open in Gmail</a></div>
   </div>
 </div>
 <a class="footer-back" href="../index.html" onclick="history.length>1&&(event.preventDefault(),history.back())">← Back to Trip</a>
 <script>function copyChip(c,t){var d=function(){c.classList.add('copied');setTimeout(function(){c.classList.remove('copied')},2000)};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(d).catch(function(){fb(t,d)})}else fb(t,d)}function fb(t,d){var e=document.createElement('input');e.value=t;e.style.cssText='position:fixed;opacity:0;top:0;left:0';document.body.appendChild(e);e.focus();e.select();e.setSelectionRange(0,t.length);try{document.execCommand('copy');d()}catch(x){}document.body.removeChild(e)}
-setTimeout(function(){var f=document.querySelector('.pdf-frame');try{if(!f.contentDocument||!f.contentDocument.body||f.contentDocument.body.innerHTML==='')document.getElementById('rb-fallback').style.display='block'}catch(e){document.getElementById('rb-fallback').style.display='block'}},2500);</script>
+(function(){var src='../tickets/roman-baths.pdf',fr=document.getElementById('rb-frame'),fb=document.getElementById('rb-fallback');fetch(src,{method:'HEAD'}).then(function(r){if(r.ok)fr.src=src;else{fr.style.display='none';fb.style.display='block';}}).catch(function(){fr.style.display='none';fb.style.display='block';});})();</script>
 </body></html>
