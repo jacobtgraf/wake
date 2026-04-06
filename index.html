@@ -127,7 +127,7 @@
     /* ─── DAYS ─── */
     .days { padding: 6px 12px 0; }
 
-    .day { margin-bottom: 10px; }
+    .day { margin-bottom: 10px; scroll-margin-top: 120px; }
 
     .day-toggle {
       width: 100%;
@@ -357,6 +357,7 @@
     .btn:active { opacity: 0.7; }
     .btn-delta  { background: var(--blue-bg);   color: var(--blue); }
     .btn-gmail  { background: var(--purple-bg);  color: var(--purple); }
+    .btn-conf   { background: var(--purple-bg);  color: var(--purple); }
     .btn-maps   { background: var(--green-bg);   color: var(--green); }
     .btn-web    { background: var(--amber-bg);   color: var(--amber); }
     .btn-train  { background: var(--teal-bg);    color: var(--teal); }
@@ -383,6 +384,26 @@
       text-align: center;
     }
 
+    /* ─── PINNED STRIP (collapsing Up Next) ─── */
+    .header-pinned {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.25s ease, opacity 0.25s ease;
+      opacity: 0;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--blue);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding-top: 0;
+    }
+    .app-header.upnext-pinned .header-pinned {
+      max-height: 24px;
+      opacity: 1;
+      padding-top: 3px;
+    }
+
     /* Desktop centering */
     @media (min-width: 540px) {
       .app-header { max-width: 500px; margin: 0 auto; }
@@ -395,9 +416,10 @@
 <!-- ═══════════════════════════════════════════════
      STICKY HEADER
 ═══════════════════════════════════════════════ -->
-<header class="app-header">
+<header class="app-header" id="app-header">
   <div class="header-title">✈ Jacob &amp; Ryan · April 2026</div>
   <div class="header-sub" id="currentCity">San Francisco → Miami · London · Bath · Cotswolds · Paris</div>
+  <div class="header-pinned" id="header-pinned"></div>
 </header>
 
 <!-- ═══════════════════════════════════════════════
@@ -597,9 +619,9 @@
           <span class="chip" onclick="copyChip(this,'F77XBA')">F77XBA</span>
         </div>
         <div class="btn-row">
-          <a class="btn btn-delta" href="https://www.delta.com/MyTrips">✈ Open Delta</a>
-          <a class="btn btn-gmail" href="https://mail.google.com/mail/u/0/#inbox/19d5fc0e246cc461">📧 Confirmation</a>
-          <a class="btn btn-maps" href="https://maps.apple.com/?q=Miami+International+Airport+MIA">📍 Miami Airport</a>
+          <a class="btn btn-delta" href="https://www.delta.com/MyTrips" target="_blank" rel="noopener">✈ Open Delta</a>
+          <a class="btn btn-conf" href="c/flight-mia-lhr.html">📋 Confirmation</a>
+          <a class="btn btn-maps" href="https://maps.apple.com/?q=Miami+International+Airport+MIA" target="_blank" rel="noopener">📍 Miami Airport</a>
         </div>
       </div>
     </div>
@@ -631,8 +653,8 @@
         <div class="card-title">Land London Heathrow</div>
         <div class="card-detail">DL 5966 · Terminal 3</div>
         <div class="btn-row">
-          <a class="btn btn-delta" href="https://www.delta.com/MyTrips">✈ Open Delta</a>
-          <a class="btn btn-maps" href="https://maps.apple.com/?q=London+Heathrow+Airport+LHR">📍 Heathrow</a>
+          <a class="btn btn-delta" href="https://www.delta.com/MyTrips" target="_blank" rel="noopener">✈ Open Delta</a>
+          <a class="btn btn-maps" href="https://maps.apple.com/?q=London+Heathrow+Airport+LHR" target="_blank" rel="noopener">📍 Heathrow</a>
         </div>
       </div>
 
@@ -650,8 +672,8 @@
           </div>
         </div>
         <div class="btn-row">
-          <a class="btn btn-gmail" href="https://mail.google.com/mail/u/0/#inbox/19d6220ecdd39389">📧 Home Guide</a>
-          <a class="btn btn-maps" href="https://maps.apple.com/?q=10+Montagu+Mews+South+London+W1H+7ER">📍 View on Map</a>
+          <a class="btn btn-conf" href="c/sandys.html">📋 Home Guide</a>
+          <a class="btn btn-maps" href="https://maps.apple.com/?q=10+Montagu+Mews+South+London+W1H+7ER" target="_blank" rel="noopener">📍 View on Map</a>
         </div>
       </div>
 
@@ -665,8 +687,8 @@
           <span class="chip" onclick="copyChip(this,'3YWXGL6DLSNN')">3YWXGL6DLSNN</span>
         </div>
         <div class="btn-row">
-          <a class="btn btn-gmail" href="https://mail.google.com/mail/u/0/#inbox/19d5d1e03ba0daf3">📧 Reservation</a>
-          <a class="btn btn-maps" href="https://maps.apple.com/?q=Fallow+Restaurant+52+Haymarket+London+SW1Y+4RP">📍 View on Map</a>
+          <a class="btn btn-conf" href="c/fallow.html">📋 Reservation</a>
+          <a class="btn btn-maps" href="https://maps.apple.com/?q=Fallow+Restaurant+52+Haymarket+London+SW1Y+4RP" target="_blank" rel="noopener">📍 View on Map</a>
         </div>
       </div>
     </div>
@@ -701,7 +723,7 @@
           <span class="chip" onclick="copyChip(this,'B-GWR-ERL0JAU3G')">B-GWR-ERL0JAU3G</span>
         </div>
         <div class="btn-row">
-          <a class="btn btn-train" href="https://mail.google.com/mail/u/0/#inbox/19d22ef42abc7ced">🎟 View Tickets</a>
+          <a class="btn btn-train" href="c/gwr-bath.html">🎟 View Tickets</a>
           <a class="btn btn-maps" href="https://maps.apple.com/?q=London+Paddington+Station">📍 Paddington</a>
         </div>
       </div>
@@ -715,8 +737,8 @@
           <span class="chip" onclick="copyChip(this,'RBOYDP1TXZRDM')">RBOYDP1TXZRDM</span>
         </div>
         <div class="btn-row">
-          <a class="btn btn-gmail" href="https://mail.google.com/mail/u/0/#inbox/19d22ebd3da5f12f">📧 Tickets</a>
-          <a class="btn btn-maps" href="https://maps.apple.com/?q=Roman+Baths+Bath+Abbey+Churchyard+BA1+1LZ">📍 View on Map</a>
+          <a class="btn btn-conf" href="c/roman-baths.html">📋 Tickets</a>
+          <a class="btn btn-maps" href="https://maps.apple.com/?q=Roman+Baths+Bath+Abbey+Churchyard+BA1+1LZ" target="_blank" rel="noopener">📍 View on Map</a>
         </div>
       </div>
 
@@ -730,8 +752,8 @@
           <span class="chip" onclick="copyChip(this,'BNK36TL9')">BNK36TL9</span>
         </div>
         <div class="btn-row">
-          <a class="btn btn-gmail" href="https://mail.google.com/mail/u/0/#inbox/19d22f482aa4d0ea">📧 Reservation</a>
-          <a class="btn btn-maps" href="https://maps.apple.com/?q=La+Terra+2+John+Street+Bath+BA1+2JL">📍 View on Map</a>
+          <a class="btn btn-conf" href="c/la-terra.html">📋 Reservation</a>
+          <a class="btn btn-maps" href="https://maps.apple.com/?q=La+Terra+2+John+Street+Bath+BA1+2JL" target="_blank" rel="noopener">📍 View on Map</a>
         </div>
       </div>
 
@@ -744,8 +766,9 @@
           <span class="chip" onclick="copyChip(this,'1963102')">#1963102</span>
         </div>
         <div class="btn-row">
-          <a class="btn btn-web" href="https://www.thermaebathspa.com/user/login">🌐 Thermae Login</a>
-          <a class="btn btn-maps" href="https://maps.apple.com/?q=Thermae+Bath+Spa+Hot+Bath+Street+Bath+BA1+1SJ">📍 View on Map</a>
+          <a class="btn btn-conf" href="c/thermae.html">📋 Confirmation</a>
+          <a class="btn btn-web" href="https://www.thermaebathspa.com/user/login" target="_blank" rel="noopener">🌐 Thermae Login</a>
+          <a class="btn btn-maps" href="https://maps.apple.com/?q=Thermae+Bath+Spa+Hot+Bath+Street+Bath+BA1+1SJ" target="_blank" rel="noopener">📍 View on Map</a>
         </div>
       </div>
 
@@ -755,7 +778,7 @@
         <div class="card-title">🚂 Bath Spa → London Paddington</div>
         <div class="card-detail">GWR · Arrives 9:08 PM · Coach A, Seats 27 &amp; 28</div>
         <div class="btn-row">
-          <a class="btn btn-train" href="https://mail.google.com/mail/u/0/#inbox/19d22ef42abc7ced">🎟 View Tickets</a>
+          <a class="btn btn-train" href="c/gwr-bath.html">🎟 View Tickets</a>
           <a class="btn btn-maps" href="https://maps.apple.com/?q=Bath+Spa+Railway+Station">📍 Bath Spa Station</a>
         </div>
       </div>
@@ -793,8 +816,8 @@
           <span class="chip" onclick="copyChip(this,'8EH6NT35UUCF')">8EH6NT35UUCF</span>
         </div>
         <div class="btn-row">
-          <a class="btn btn-gmail" href="https://mail.google.com/mail/u/0/#inbox/19d2298a4ecdb7a9">📧 Reservation</a>
-          <a class="btn btn-maps" href="https://maps.apple.com/?q=Dishoom+Carnaby+22+Kingly+Street+London+W1B+5QP">📍 View on Map</a>
+          <a class="btn btn-conf" href="c/dishoom.html">📋 Reservation</a>
+          <a class="btn btn-maps" href="https://maps.apple.com/?q=Dishoom+Carnaby+22+Kingly+Street+London+W1B+5QP" target="_blank" rel="noopener">📍 View on Map</a>
         </div>
       </div>
     </div>
@@ -832,8 +855,8 @@
           <span class="chip" onclick="copyChip(this,'2101387643')">2101387643</span>
         </div>
         <div class="btn-row">
-          <a class="btn btn-gmail" href="https://mail.google.com/mail/u/0/#inbox/19d2e0038583934f">📧 Rental Confirmation</a>
-          <a class="btn btn-maps" href="https://maps.apple.com/?q=NCP+Car+Park+170+Marylebone+Road+London+NW1+5AR">📍 NCP Marylebone</a>
+          <a class="btn btn-conf" href="c/enterprise.html">📋 Rental Confirmation</a>
+          <a class="btn btn-maps" href="https://maps.apple.com/?q=NCP+Car+Park+170+Marylebone+Road+London+NW1+5AR" target="_blank" rel="noopener">📍 NCP Marylebone</a>
         </div>
       </div>
 
@@ -844,7 +867,7 @@
         <div class="card-detail">The Stables, Grittleton, Wiltshire SN14 6AP</div>
         <div class="card-detail">Francesca &amp; Keith's wedding weekend</div>
         <div class="btn-row">
-          <a class="btn btn-maps" href="https://maps.apple.com/?q=Grittleton+House+Grittleton+Wiltshire+SN14+6AP">📍 Grittleton House</a>
+          <a class="btn btn-maps" href="https://maps.apple.com/?q=Grittleton+House+Grittleton+Wiltshire+SN14+6AP" target="_blank" rel="noopener">📍 Grittleton House</a>
         </div>
       </div>
     </div>
@@ -876,7 +899,7 @@
         <div class="card-detail">Grittleton House &amp; The Stables</div>
         <div class="card-detail">Ceremony · Reception · Dinner · Dancing 🎉</div>
         <div class="btn-row">
-          <a class="btn btn-maps" href="https://maps.apple.com/?q=Grittleton+House+Grittleton+Wiltshire+SN14+6AP">📍 Grittleton House</a>
+          <a class="btn btn-maps" href="https://maps.apple.com/?q=Grittleton+House+Grittleton+Wiltshire+SN14+6AP" target="_blank" rel="noopener">📍 Grittleton House</a>
         </div>
       </div>
     </div>
@@ -913,7 +936,7 @@
         <div class="card-title">🚂 Chippenham → London Paddington</div>
         <div class="card-detail">GWR · ~1 hr · Tube/cab to St Pancras after</div>
         <div class="btn-row">
-          <a class="btn btn-maps" href="https://maps.apple.com/?q=Chippenham+Railway+Station">📍 Chippenham Station</a>
+          <a class="btn btn-maps" href="https://maps.apple.com/?q=Chippenham+Railway+Station" target="_blank" rel="noopener">📍 Chippenham Station</a>
         </div>
       </div>
 
@@ -928,8 +951,8 @@
           <span class="chip" onclick="copyChip(this,'6DJ26K')">6DJ26K</span>
         </div>
         <div class="btn-row">
-          <a class="btn btn-train" href="https://mail.google.com/mail/u/0/#inbox/19d41c5424f63226">🎟 Eurostar Tickets</a>
-          <a class="btn btn-maps" href="https://maps.apple.com/?q=St+Pancras+International+Station+London">📍 St Pancras</a>
+          <a class="btn btn-train" href="c/eurostar.html">🎟 Eurostar Tickets</a>
+          <a class="btn btn-maps" href="https://maps.apple.com/?q=St+Pancras+International+Station+London" target="_blank" rel="noopener">📍 St Pancras</a>
         </div>
       </div>
 
@@ -943,8 +966,8 @@
           <span class="chip" onclick="copyChip(this,'65706SG045052')">65706SG045052</span>
         </div>
         <div class="btn-row">
-          <a class="btn btn-gmail" href="https://mail.google.com/mail/u/0/#inbox/19d08f1fe518d26c">📧 Confirmation</a>
-          <a class="btn btn-maps" href="https://maps.apple.com/?q=Hotel+Le+Pigalle+9+Rue+Frochot+Paris+75009">📍 View on Map</a>
+          <a class="btn btn-conf" href="c/le-pigalle.html">📋 Confirmation</a>
+          <a class="btn btn-maps" href="https://maps.apple.com/?q=Hotel+Le+Pigalle+9+Rue+Frochot+Paris+75009" target="_blank" rel="noopener">📍 View on Map</a>
         </div>
       </div>
 
@@ -957,8 +980,8 @@
           <span class="chip" onclick="copyChip(this,'262010165929')">262010165929</span>
         </div>
         <div class="btn-row">
-          <a class="btn btn-gmail" href="https://mail.google.com/mail/u/0/#inbox/19d25d8b060481e5">📧 Tickets</a>
-          <a class="btn btn-maps" href="https://maps.apple.com/?q=Eiffel+Tower+Paris+75007">📍 Eiffel Tower</a>
+          <a class="btn btn-conf" href="c/eiffel-tower.html">📋 Tickets</a>
+          <a class="btn btn-maps" href="https://maps.apple.com/?q=Eiffel+Tower+Paris+75007" target="_blank" rel="noopener">📍 Eiffel Tower</a>
         </div>
       </div>
     </div>
@@ -995,8 +1018,8 @@
           <span class="chip" onclick="copyChip(this,'V26078735832')">V26078735832</span>
         </div>
         <div class="btn-row">
-          <a class="btn btn-gmail" href="https://mail.google.com/mail/u/0/#inbox/19d41c085807775b">📧 Tickets</a>
-          <a class="btn btn-maps" href="https://maps.apple.com/?q=Musee+du+Louvre+Paris+75001">📍 Louvre</a>
+          <a class="btn btn-conf" href="c/louvre.html">📋 Tickets</a>
+          <a class="btn btn-maps" href="https://maps.apple.com/?q=Musee+du+Louvre+Paris+75001" target="_blank" rel="noopener">📍 Louvre</a>
         </div>
       </div>
 
@@ -1013,8 +1036,8 @@
           <span class="chip" onclick="copyChip(this,'1733397499')">1733397499</span>
         </div>
         <div class="btn-row">
-          <a class="btn btn-gmail" href="https://mail.google.com/mail/u/0/#inbox/19d1e452d3046bf8">📧 Reservation</a>
-          <a class="btn btn-maps" href="https://maps.apple.com/?q=Ardent+Paris+40+Rue+Richer+75009">📍 View on Map</a>
+          <a class="btn btn-conf" href="c/ardent.html">📋 Reservation</a>
+          <a class="btn btn-maps" href="https://maps.apple.com/?q=Ardent+Paris+40+Rue+Richer+75009" target="_blank" rel="noopener">📍 View on Map</a>
         </div>
       </div>
     </div>
@@ -1055,9 +1078,9 @@
           <span class="chip" onclick="copyChip(this,'F77XBA')">F77XBA</span>
         </div>
         <div class="btn-row">
-          <a class="btn btn-delta" href="https://www.delta.com/MyTrips">✈ Open Delta</a>
-          <a class="btn btn-gmail" href="https://mail.google.com/mail/u/0/#inbox/19bb0639bc202d70">📧 Itinerary</a>
-          <a class="btn btn-maps" href="https://maps.apple.com/?q=Paris+Charles+de+Gaulle+Airport+CDG">📍 CDG Airport</a>
+          <a class="btn btn-delta" href="https://www.delta.com/MyTrips" target="_blank" rel="noopener">✈ Open Delta</a>
+          <a class="btn btn-conf" href="c/flight-cdg-sfo.html">📋 Confirmation</a>
+          <a class="btn btn-maps" href="https://maps.apple.com/?q=Paris+Charles+de+Gaulle+Airport+CDG" target="_blank" rel="noopener">📍 CDG Airport</a>
         </div>
       </div>
 
@@ -1081,55 +1104,56 @@
   var events = [
     { ts:'2026-04-06T22:25:00Z', title:'✈ MIA → London Heathrow',   detail:'DL 5966 (Virgin Atlantic) · 6:25 PM EDT · Seats 58B & 58A',
       btns:[{cls:'upnext-btn', href:'https://www.delta.com/MyTrips', label:'✈ Open Delta'},
-            {cls:'upnext-btn', href:'https://mail.google.com/mail/u/0/#inbox/19d5fc0e246cc461', label:'📧 Confirmation'},
+            {cls:'upnext-btn', href:'c/flight-mia-lhr.html', label:'📋 Confirmation'},
             {cls:'upnext-btn', href:'https://maps.apple.com/?q=Miami+International+Airport+MIA', label:'📍 Miami Airport'}]},
     { ts:'2026-04-07T07:05:00Z', title:'Land Heathrow — 8:05 AM BST', detail:'DL 5966 · Welcome to London 🇬🇧',
       btns:[{cls:'upnext-btn', href:'https://www.delta.com/MyTrips', label:'✈ Open Delta'}]},
     { ts:'2026-04-07T15:00:00Z', title:'Check In — Sandy\'s London',   detail:'Unit 11 · 10 Montagu Mews S, W1H 7ER · Door code: 1340',
-      btns:[{cls:'upnext-btn', href:'https://mail.google.com/mail/u/0/#inbox/19d6220ecdd39389', label:'📧 Home Guide'},
+      btns:[{cls:'upnext-btn', href:'c/sandys.html', label:'📋 Home Guide'},
             {cls:'upnext-btn', href:'https://maps.apple.com/?q=10+Montagu+Mews+South+London+W1H+7ER', label:'📍 Sandy\'s'}]},
     { ts:'2026-04-07T18:00:00Z', title:'🍽 Fallow Restaurant',         detail:'52 Haymarket, London · 7:00 PM BST · 2 guests',
-      btns:[{cls:'upnext-btn', href:'https://mail.google.com/mail/u/0/#inbox/19d5d1e03ba0daf3', label:'📧 Reservation'},
+      btns:[{cls:'upnext-btn', href:'c/fallow.html', label:'📋 Reservation'},
             {cls:'upnext-btn', href:'https://maps.apple.com/?q=Fallow+Restaurant+52+Haymarket+London', label:'📍 Fallow'}]},
     { ts:'2026-04-08T05:28:00Z', title:'🚂 Paddington → Bath Spa',     detail:'GWR · Departs 6:28 AM BST · Coach A Seats 13 & 14',
-      btns:[{cls:'upnext-btn', href:'https://mail.google.com/mail/u/0/#inbox/19d22ef42abc7ced', label:'🎟 View Tickets'},
+      btns:[{cls:'upnext-btn', href:'c/gwr-bath.html', label:'🎟 View Tickets'},
             {cls:'upnext-btn', href:'https://maps.apple.com/?q=London+Paddington+Station', label:'📍 Paddington'}]},
     { ts:'2026-04-08T08:15:00Z', title:'🏛 Roman Baths',               detail:'Entry 9:15 AM BST · 2 adults',
-      btns:[{cls:'upnext-btn', href:'https://mail.google.com/mail/u/0/#inbox/19d22ebd3da5f12f', label:'📧 Tickets'}]},
+      btns:[{cls:'upnext-btn', href:'c/roman-baths.html', label:'📋 Tickets'}]},
     { ts:'2026-04-08T11:30:00Z', title:'🍽 La Terra',                  detail:'2 John St, Bath · 12:30 PM BST · 2 guests',
-      btns:[{cls:'upnext-btn', href:'https://mail.google.com/mail/u/0/#inbox/19d22f482aa4d0ea', label:'📧 Reservation'}]},
+      btns:[{cls:'upnext-btn', href:'c/la-terra.html', label:'📋 Reservation'}]},
     { ts:'2026-04-08T15:30:00Z', title:'♨️ Thermae Bath Spa',          detail:'Hot Bath St, Bath · 4:30 PM BST',
-      btns:[{cls:'upnext-btn', href:'https://www.thermaebathspa.com/user/login', label:'🌐 Thermae Login'}]},
+      btns:[{cls:'upnext-btn', href:'c/thermae.html', label:'📋 Confirmation'},
+            {cls:'upnext-btn', href:'https://www.thermaebathspa.com/user/login', label:'🌐 Login'}]},
     { ts:'2026-04-08T18:43:00Z', title:'🚂 Bath Spa → Paddington',     detail:'Departs 7:43 PM BST · Coach A Seats 27 & 28',
-      btns:[{cls:'upnext-btn', href:'https://mail.google.com/mail/u/0/#inbox/19d22ef42abc7ced', label:'🎟 View Tickets'}]},
+      btns:[{cls:'upnext-btn', href:'c/gwr-bath.html', label:'🎟 View Tickets'}]},
     { ts:'2026-04-09T20:00:00Z', title:'🍽 Dishoom Carnaby',           detail:'22 Kingly St, London · 9:00 PM BST · 8 guests',
-      btns:[{cls:'upnext-btn', href:'https://mail.google.com/mail/u/0/#inbox/19d2298a4ecdb7a9', label:'📧 Reservation'},
+      btns:[{cls:'upnext-btn', href:'c/dishoom.html', label:'📋 Reservation'},
             {cls:'upnext-btn', href:'https://maps.apple.com/?q=Dishoom+Carnaby+22+Kingly+Street+London', label:'📍 Dishoom'}]},
     { ts:'2026-04-10T11:00:00Z', title:'🚗 Enterprise Car Pickup',     detail:'NCP 170 Marylebone Rd · 12:00 PM BST · Nissan Qashqai',
-      btns:[{cls:'upnext-btn', href:'https://mail.google.com/mail/u/0/#inbox/19d2e0038583934f', label:'📧 Rental'},
+      btns:[{cls:'upnext-btn', href:'c/enterprise.html', label:'📋 Rental'},
             {cls:'upnext-btn', href:'https://maps.apple.com/?q=NCP+Car+Park+170+Marylebone+Road+London', label:'📍 NCP'}]},
     { ts:'2026-04-10T17:00:00Z', title:'💍 Arrive Grittleton House',   detail:'Wiltshire · Francesca & Keith wedding weekend',
       btns:[{cls:'upnext-btn', href:'https://maps.apple.com/?q=Grittleton+House+Grittleton+Wiltshire+SN14+6AP', label:'📍 Grittleton'}]},
     { ts:'2026-04-11T11:00:00Z', title:'💐 Francesca & Keith — Wedding Day', detail:'Grittleton House & The Stables · Ceremony & Reception',
       btns:[]},
     { ts:'2026-04-12T10:16:00Z', title:'🚄 Eurostar Check-In Deadline', detail:'Arrive St Pancras by 11:16 AM BST · Coach 5: Jacob Seat 52, Ryan Seat 51',
-      btns:[{cls:'upnext-btn', href:'https://mail.google.com/mail/u/0/#inbox/19d41c5424f63226', label:'🎟 Eurostar Tickets'},
+      btns:[{cls:'upnext-btn', href:'c/eurostar.html', label:'🎟 Eurostar Tickets'},
             {cls:'upnext-btn', href:'https://maps.apple.com/?q=St+Pancras+International+Station+London', label:'📍 St Pancras'}]},
     { ts:'2026-04-12T13:00:00Z', title:'🏨 Check In — Hôtel Le Pigalle', detail:'9 Rue Frochot, 75009 Paris · Room: Pigalle 35',
-      btns:[{cls:'upnext-btn', href:'https://mail.google.com/mail/u/0/#inbox/19d08f1fe518d26c', label:'📧 Confirmation'},
+      btns:[{cls:'upnext-btn', href:'c/le-pigalle.html', label:'📋 Confirmation'},
             {cls:'upnext-btn', href:'https://maps.apple.com/?q=Hotel+Le+Pigalle+9+Rue+Frochot+Paris+75009', label:'📍 Le Pigalle'}]},
     { ts:'2026-04-12T17:30:00Z', title:'🗼 Eiffel Tower',              detail:'7:30 PM CEST · 2nd floor by lift + champagne 🥂',
-      btns:[{cls:'upnext-btn', href:'https://mail.google.com/mail/u/0/#inbox/19d25d8b060481e5', label:'📧 Tickets'},
+      btns:[{cls:'upnext-btn', href:'c/eiffel-tower.html', label:'📋 Tickets'},
             {cls:'upnext-btn', href:'https://maps.apple.com/?q=Eiffel+Tower+Paris+75007', label:'📍 Eiffel Tower'}]},
     { ts:'2026-04-13T08:00:00Z', title:'🖼 Musée du Louvre',           detail:'Bring photo ID — nominative tickets · 2 adults',
-      btns:[{cls:'upnext-btn', href:'https://mail.google.com/mail/u/0/#inbox/19d41c085807775b', label:'📧 Tickets'},
+      btns:[{cls:'upnext-btn', href:'c/louvre.html', label:'📋 Tickets'},
             {cls:'upnext-btn', href:'https://maps.apple.com/?q=Musee+du+Louvre+Paris+75001', label:'📍 Louvre'}]},
     { ts:'2026-04-13T18:30:00Z', title:'🍽 Ardent Paris',              detail:'40 Rue Richer, 75009 · 8:30 PM CEST · Window table · Anniversary',
-      btns:[{cls:'upnext-btn', href:'https://mail.google.com/mail/u/0/#inbox/19d1e452d3046bf8', label:'📧 Reservation'},
+      btns:[{cls:'upnext-btn', href:'c/ardent.html', label:'📋 Reservation'},
             {cls:'upnext-btn', href:'https://maps.apple.com/?q=Ardent+Paris+40+Rue+Richer+75009', label:'📍 Ardent'}]},
     { ts:'2026-04-14T08:20:00Z', title:'✈ Paris CDG → San Francisco', detail:'DL 8726 (Air France) · 10:20 AM CEST · Seat 33J',
       btns:[{cls:'upnext-btn', href:'https://www.delta.com/MyTrips', label:'✈ Open Delta'},
-            {cls:'upnext-btn', href:'https://mail.google.com/mail/u/0/#inbox/19bb0639bc202d70', label:'📧 Itinerary'},
+            {cls:'upnext-btn', href:'c/flight-cdg-sfo.html', label:'📋 Confirmation'},
             {cls:'upnext-btn', href:'https://maps.apple.com/?q=Paris+Charles+de+Gaulle+Airport+CDG', label:'📍 CDG'}]},
   ];
 
@@ -1175,7 +1199,8 @@
       return;
     }
     var btnHTML = upnext.btns.map(function(b){
-      return '<a class="' + b.cls + '" href="' + b.href + '">' + b.label + '</a>';
+      var ext = b.href.indexOf('http') === 0 ? ' target="_blank" rel="noopener"' : '';
+      return '<a class="' + b.cls + '" href="' + b.href + '"' + ext + '>' + b.label + '</a>';
     }).join('');
     el.innerHTML = '<div class="upnext-card"><div class="upnext-label">▶ Up Next</div><div class="upnext-title">' + upnext.title + '</div><div class="upnext-detail">' + upnext.detail + '</div>' + (btnHTML ? '<div class="upnext-btns">' + btnHTML + '</div>' : '') + '</div>';
   }
@@ -1236,10 +1261,42 @@
     if (sub) sub.textContent = getCurrentCity();
   }
 
+  // ── Open all maps/delta/web buttons in new tab ────────────────────────────
+  document.querySelectorAll('.btn-maps, .btn-delta, .btn-web').forEach(function(a) {
+    a.setAttribute('target', '_blank');
+    a.setAttribute('rel', 'noopener');
+  });
+
   // ── Boot ──────────────────────────────────────────────────────────────────
   initDays();
   renderUpNext();
   updateHeader();
+
+  // ── Scroll to today ───────────────────────────────────────────────────────
+  var todayEl = document.querySelector('.day.today');
+  if (todayEl) todayEl.scrollIntoView({ block: 'start' });
+
+  // ── Collapsing Up Next into header ────────────────────────────────────────
+  (function() {
+    var upnextEl = document.getElementById('upnext');
+    var header   = document.getElementById('app-header');
+    var pinned   = document.getElementById('header-pinned');
+    if (!upnextEl || !header || !pinned) return;
+
+    function updatePinnedText() {
+      var next = getUpNext();
+      if (next) {
+        pinned.textContent = '▶ ' + next.title.replace(/^[^\w\s✈🚂🚄🍽🏛♨️🏨🚗💍💐🗼🖼]+\s*/, '') + (next.detail ? ' · ' + next.detail.split('·')[0].trim() : '');
+      }
+    }
+    updatePinnedText();
+
+    var obs = new IntersectionObserver(function(entries) {
+      var gone = !entries[0].isIntersecting;
+      header.classList.toggle('upnext-pinned', gone);
+    }, { threshold: 0 });
+    obs.observe(upnextEl);
+  })();
 </script>
 </body>
 </html>

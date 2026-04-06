@@ -1,0 +1,26 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"/><title>Roman Baths</title><style>*{box-sizing:border-box;margin:0;padding:0}:root{--bg:#f2f2f7;--card:#fff;--text:#1c1c1e;--text2:#636366;--sep:#e5e5ea;--blue:#0071e3;--blue-bg:#e8f1fd;--amber:#b45309;--amber-bg:#fef3c7;--green:#059669;--green-bg:#d1fae5;--teal:#0891b2;--teal-bg:#cffafe}body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif;background:var(--bg);color:var(--text);padding-bottom:60px}.vh{position:sticky;top:0;z-index:100;background:rgba(242,242,247,.92);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border-bottom:1px solid var(--sep);display:flex;align-items:center;gap:12px;padding:12px 16px;min-height:48px}.back{font-size:16px;font-weight:600;color:var(--blue);text-decoration:none;white-space:nowrap;-webkit-tap-highlight-color:transparent}.vh-title{font-size:16px;font-weight:700;color:var(--text);flex:1;text-align:center;margin-right:52px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.body{padding:16px;display:flex;flex-direction:column;gap:12px}.card{background:var(--card);border-radius:12px;padding:14px 16px;border-left:4px solid var(--amber)}.label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--amber);margin-bottom:6px}.title{font-size:18px;font-weight:800;color:var(--text);margin-bottom:4px}.row{font-size:14px;color:var(--text2);line-height:1.6}.divider{height:1px;background:var(--sep);margin:8px 0}.chip{display:inline-flex;align-items:center;gap:5px;padding:5px 10px;border-radius:6px;background:var(--bg);border:1px solid var(--sep);font-size:12px;font-weight:700;color:var(--text2);font-family:"SF Mono","Courier New",monospace;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .15s,color .15s,border-color .15s}.chip::after{content:" ⎘";font-size:10px;opacity:.5}.chip.copied{background:var(--green-bg);color:var(--green);border-color:var(--green)}.chip.copied::after{content:" ✓";opacity:1}.refs{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.btn{display:inline-flex;align-items:center;gap:5px;padding:10px 16px;border-radius:20px;font-size:14px;font-weight:600;text-decoration:none;white-space:nowrap;-webkit-tap-highlight-color:transparent}.btn-maps{background:var(--green-bg);color:var(--green)}.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.pdf-wrap{background:var(--card);border-radius:12px;overflow:hidden;border:1px solid var(--sep)}.pdf-label{font-size:12px;font-weight:700;color:var(--amber);padding:12px 14px 8px;text-transform:uppercase;letter-spacing:.5px}.pdf-frame{width:100%;height:520px;border:none;display:block}.pdf-fallback{padding:16px;text-align:center;font-size:13px;color:var(--text2)}.footer-back{display:block;text-align:center;padding:20px 16px;font-size:15px;font-weight:600;color:var(--blue);text-decoration:none}</style></head>
+<body>
+<div class="vh"><a class="back" href="../index.html" onclick="history.length>1&&(event.preventDefault(),history.back())">← Trip</a><span class="vh-title">Roman Baths</span></div>
+<div class="body">
+  <div class="card">
+    <div class="label">Attraction · Apr 8</div>
+    <div class="title">🏛 Roman Baths</div>
+    <div class="row">Abbey Churchyard, Bath BA1 1LZ</div>
+    <div class="divider"></div>
+    <div class="row"><strong>Entry</strong> 9:15 AM BST</div>
+    <div class="row"><strong>Tickets</strong> 2 adults · £53 paid</div>
+    <div class="refs"><span class="chip" onclick="copyChip(this,'RBOYDP1TXZRDM')">RBOYDP1TXZRDM</span></div>
+    <div class="btns">
+      <a class="btn btn-maps" href="https://maps.apple.com/?q=Roman+Baths+Bath+Abbey+Churchyard+BA1+1LZ" target="_blank" rel="noopener">📍 View on Map</a>
+    </div>
+  </div>
+  <div class="pdf-wrap">
+    <div class="pdf-label">🎟 Tickets</div>
+    <iframe class="pdf-frame" src="../tickets/roman-baths.pdf" title="Roman Baths Tickets"></iframe>
+    <div class="pdf-fallback" id="rb-fallback" style="display:none">PDF not yet added — <a href="https://mail.google.com/mail/u/0/#inbox/19d22ebd3da5f12f" target="_blank" style="color:var(--amber)">open in Gmail</a></div>
+  </div>
+</div>
+<a class="footer-back" href="../index.html" onclick="history.length>1&&(event.preventDefault(),history.back())">← Back to Trip</a>
+<script>function copyChip(c,t){var d=function(){c.classList.add('copied');setTimeout(function(){c.classList.remove('copied')},2000)};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(d).catch(function(){fb(t,d)})}else fb(t,d)}function fb(t,d){var e=document.createElement('input');e.value=t;e.style.cssText='position:fixed;opacity:0;top:0;left:0';document.body.appendChild(e);e.focus();e.select();e.setSelectionRange(0,t.length);try{document.execCommand('copy');d()}catch(x){}document.body.removeChild(e)}
+setTimeout(function(){var f=document.querySelector('.pdf-frame');try{if(!f.contentDocument||!f.contentDocument.body||f.contentDocument.body.innerHTML==='')document.getElementById('rb-fallback').style.display='block'}catch(e){document.getElementById('rb-fallback').style.display='block'}},2500);</script>
+</body></html>
