@@ -15,12 +15,19 @@
     </div>
   </div>
   <div class="pdf-wrap">
-    <div class="pdf-label">🎟 Tickets</div>
-    <iframe class="pdf-frame" id="es-frame" title="Eurostar Tickets"></iframe>
-    <div class="pdf-fallback" id="es-fallback" style="display:none">PDF not yet added — <a href="https://mail.google.com/mail/u/0/#inbox/19d41c5424f63226" target="_blank" style="color:var(--teal)">open in Gmail</a></div>
+    <div class="pdf-label">🎟 Jacob's Ticket</div>
+    <iframe class="pdf-frame" id="es-frame-jacob" title="Jacob Eurostar Ticket"></iframe>
+    <div class="pdf-fallback" id="es-fallback-jacob" style="display:none">PDF not found — <a href="https://mail.google.com/mail/u/0/#inbox/19d41c5424f63226" target="_blank" style="color:var(--teal)">open in Gmail</a></div>
+  </div>
+  <div class="pdf-wrap">
+    <div class="pdf-label">🎟 Ryan's Ticket</div>
+    <iframe class="pdf-frame" id="es-frame-ryan" title="Ryan Eurostar Ticket"></iframe>
+    <div class="pdf-fallback" id="es-fallback-ryan" style="display:none">PDF not found — <a href="https://mail.google.com/mail/u/0/#inbox/19d41c5424f63226" target="_blank" style="color:var(--teal)">open in Gmail</a></div>
   </div>
 </div>
 <a class="footer-back" href="../index.html" onclick="history.length>1&&(event.preventDefault(),history.back())">← Back to Trip</a>
 <script>function copyChip(c,t){var d=function(){c.classList.add('copied');setTimeout(function(){c.classList.remove('copied')},2000)};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(d).catch(function(){fb(t,d)})}else fb(t,d)}function fb(t,d){var e=document.createElement('input');e.value=t;e.style.cssText='position:fixed;opacity:0;top:0;left:0';document.body.appendChild(e);e.focus();e.select();e.setSelectionRange(0,t.length);try{document.execCommand('copy');d()}catch(x){}document.body.removeChild(e)}
-(function(){var src='../tickets/eurostar.pdf',fr=document.getElementById('es-frame'),fb=document.getElementById('es-fallback');fetch(src,{method:'HEAD'}).then(function(r){if(r.ok)fr.src=src;else{fr.style.display='none';fb.style.display='block';}}).catch(function(){fr.style.display='none';fb.style.display='block';});})();</script>
+function loadPDF(src,frameId,fbId){var fr=document.getElementById(frameId),fb=document.getElementById(fbId);fetch(src,{method:'HEAD'}).then(function(r){if(r.ok)fr.src=src;else{fr.style.display='none';fb.style.display='block';}}).catch(function(){fr.style.display='none';fb.style.display='block';});}
+loadPDF('../tickets/eurostar-jacob.pdf','es-frame-jacob','es-fallback-jacob');
+loadPDF('../tickets/eurostar-ryan.pdf','es-frame-ryan','es-fallback-ryan');</script>
 </body></html>
