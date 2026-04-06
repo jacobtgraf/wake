@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+  <title>Link Test</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #1d2125;
+      color: #b6c2cf;
+      padding: 24px 16px;
+    }
+    h1 { color: #fff; font-size: 20px; margin-bottom: 4px; }
+    p { font-size: 13px; color: #8c9bab; margin-bottom: 24px; }
+    .section { margin-bottom: 32px; }
+    .section h2 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #596068; margin-bottom: 10px; }
+    .btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 12px;
+      border: none;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      margin-bottom: 10px;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn-maps    { background: #1c3a6b; color: #579dff; }
+    .btn-delta   { background: #0d3a40; color: #60c6d2; }
+    .btn-gmail   { background: #2a1f5e; color: #9f8fef; }
+    .btn-copy    { background: #282e33; color: #b6c2cf; border: 1px solid #3d4a56; }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: 8px;
+      background: #22272b;
+      border: 1px solid #3d4a56;
+      font-size: 14px;
+      font-weight: 700;
+      color: #cdd3da;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      letter-spacing: 0.5px;
+      font-family: 'SF Mono', 'Courier New', monospace;
+      transition: background 0.15s, color 0.15s;
+    }
+    .chip.copied { background: #0e3d2a; color: #4bce97; border-color: #4bce97; }
+    .result {
+      margin-top: 10px;
+      font-size: 12px;
+      color: #4bce97;
+      min-height: 18px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>🧪 Link Test</h1>
+<p>Tap each button on your iPhone to confirm it works before building the full trip board.</p>
+
+<!-- 1. Apple Maps pin -->
+<div class="section">
+  <h2>1 · Apple Maps — Location Pin</h2>
+  <a class="btn btn-maps" href="https://maps.apple.com/?q=Fallow+Restaurant+52+Haymarket+London+SW1Y+4RP">
+    📍 Fallow Restaurant · London
+  </a>
+  <a class="btn btn-maps" href="https://maps.apple.com/?q=Hotel+Le+Pigalle+9+Rue+Frochot+Paris+75009">
+    📍 Hôtel Le Pigalle · Paris
+  </a>
+  <p style="font-size:12px; color:#596068; margin-top:4px;">Should open Apple Maps showing the location pin (not directions)</p>
+</div>
+
+<!-- 2. Delta app -->
+<div class="section">
+  <h2>2 · Delta App Deep Link</h2>
+  <a class="btn btn-delta" href="delta://">
+    ✈️ Open Delta App
+  </a>
+  <p style="font-size:12px; color:#596068; margin-top:4px;">Should open the Delta app directly</p>
+</div>
+
+<!-- 3. Gmail deep link -->
+<div class="section">
+  <h2>3 · Gmail — Exact Email</h2>
+  <a class="btn btn-gmail" href="https://mail.google.com/mail/u/0/#inbox/19d5fc0e246cc461">
+    📧 MIA→LHR Flight Confirmation
+  </a>
+  <p style="font-size:12px; color:#596068; margin-top:4px;">Should open Gmail to your Delta/Virgin confirmation email</p>
+</div>
+
+<!-- 4. Tap-to-copy chip -->
+<div class="section">
+  <h2>4 · Tap-to-Copy Confirmation Chip</h2>
+  <span class="chip" id="chip" onclick="copyChip()">F77XBA</span>
+  <div class="result" id="copyResult"></div>
+  <p style="font-size:12px; color:#596068; margin-top:8px;">Tap the chip — it should copy "F77XBA" to your clipboard and flash green</p>
+</div>
+
+<script>
+  function copyChip() {
+    var chip = document.getElementById('chip');
+    var result = document.getElementById('copyResult');
+    var code = 'F77XBA';
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(code).then(function() {
+        chip.classList.add('copied');
+        result.textContent = '✓ Copied to clipboard!';
+        setTimeout(function() {
+          chip.classList.remove('copied');
+          result.textContent = '';
+        }, 2000);
+      }).catch(function() {
+        fallbackCopy(code, chip, result);
+      });
+    } else {
+      fallbackCopy(code, chip, result);
+    }
+  }
+
+  function fallbackCopy(text, chip, result) {
+    var el = document.createElement('textarea');
+    el.value = text;
+    el.style.position = 'fixed';
+    el.style.opacity = '0';
+    document.body.appendChild(el);
+    el.focus();
+    el.select();
+    try {
+      document.execCommand('copy');
+      chip.classList.add('copied');
+      result.textContent = '✓ Copied!';
+      setTimeout(function() {
+        chip.classList.remove('copied');
+        result.textContent = '';
+      }, 2000);
+    } catch(e) {
+      result.textContent = '✗ Copy failed — try long-pressing instead';
+    }
+    document.body.removeChild(el);
+  }
+</script>
+
+</body>
+</html>

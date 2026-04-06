@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jacob &amp; Ryan's Trip Board — April 2026</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #1d2125;
+      color: #b6c2cf;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    header {
+      margin-bottom: 20px;
+    }
+
+    header h1 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    header p {
+      font-size: 13px;
+      color: #8c9bab;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: #8c9bab;
+    }
+
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    .board {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 20px;
+      align-items: flex-start;
+    }
+
+    .board::-webkit-scrollbar { height: 8px; }
+    .board::-webkit-scrollbar-track { background: #2c333b; border-radius: 4px; }
+    .board::-webkit-scrollbar-thumb { background: #596068; border-radius: 4px; }
+
+    /* Column */
+    .col {
+      min-width: 220px;
+      max-width: 220px;
+      background: #282e33;
+      border-radius: 12px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .col-header {
+      padding: 10px 12px 8px;
+      position: relative;
+    }
+
+    .col-header .day-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      opacity: 0.85;
+      margin-bottom: 2px;
+    }
+
+    .col-header .date-label {
+      font-size: 17px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .col-header .location-badge {
+      display: inline-block;
+      margin-top: 6px;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+      letter-spacing: 0.3px;
+    }
+
+    .col-body {
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    /* Time-of-day label */
+    .time-section {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      color: #596068;
+      padding: 4px 2px 2px;
+    }
+
+    /* Card */
+    .card {
+      background: #22272b;
+      border-radius: 8px;
+      padding: 9px 10px;
+      border-left: 3px solid transparent;
+      font-size: 12px;
+      line-height: 1.45;
+      color: #b6c2cf;
+    }
+
+    .card .card-title {
+      font-weight: 600;
+      color: #cdd3da;
+      margin-bottom: 3px;
+      font-size: 12.5px;
+    }
+
+    .card .card-detail {
+      font-size: 11px;
+      color: #8c9bab;
+      margin-top: 2px;
+    }
+
+    .card .tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 1px 6px;
+      border-radius: 3px;
+      margin-bottom: 4px;
+      letter-spacing: 0.3px;
+    }
+
+    /* Card types */
+    .card.flight    { border-left-color: #579dff; }
+    .card.hotel     { border-left-color: #9f8fef; }
+    .card.event     { border-left-color: #f5cd47; }
+    .card.food      { border-left-color: #4bce97; }
+    .card.travel    { border-left-color: #60c6d2; }
+    .card.wedding   { border-left-color: #f87168; }
+    .card.free      { border-left-color: #596068; }
+    .card.needs-booking {
+      border-left-color: #f87168;
+      background: #2d1f1f;
+      color: #f87168;
+    }
+    .card.needs-booking .card-title { color: #f87168; }
+    .card.needs-booking .card-detail { color: #d17171; }
+
+    .card.pending {
+      border-left-color: #e2b203;
+      background: #2a2615;
+    }
+    .card.pending .card-title { color: #f5cd47; }
+    .card.pending .card-detail { color: #b8a43a; }
+
+    /* Tag colors */
+    .tag.flight-tag   { background: #1c3a6b; color: #579dff; }
+    .tag.hotel-tag    { background: #2a1f5e; color: #9f8fef; }
+    .tag.event-tag    { background: #463a00; color: #f5cd47; }
+    .tag.food-tag     { background: #0e3d2a; color: #4bce97; }
+    .tag.travel-tag   { background: #0d3a40; color: #60c6d2; }
+    .tag.wedding-tag  { background: #3d1210; color: #f87168; }
+    .tag.alert-tag    { background: #3d1210; color: #f87168; }
+    .tag.pending-tag  { background: #3d3000; color: #f5cd47; }
+
+    /* Column header color themes */
+    .col.miami    .col-header { background: linear-gradient(135deg, #1e5f74, #2a8fac); }
+    .col.miami2   .col-header { background: linear-gradient(135deg, #1e5f74, #2a8fac); }
+    .col.transit  .col-header { background: linear-gradient(135deg, #3b3279, #5a4fcf); }
+    .col.london   .col-header { background: linear-gradient(135deg, #1f3f6e, #2c5fa8); }
+    .col.bath     .col-header { background: linear-gradient(135deg, #1f4f38, #2d7a55); }
+    .col.cotswolds .col-header { background: linear-gradient(135deg, #6b2020, #b33a3a); }
+    .col.paris    .col-header { background: linear-gradient(135deg, #5a3570, #8a4faa); }
+    .col.home     .col-header { background: linear-gradient(135deg, #2a3a2a, #3f6040); }
+    .col.departure .col-header { background: linear-gradient(135deg, #3a3020, #8a6030); }
+
+    .empty-card {
+      background: transparent;
+      border: 1px dashed #3d4a56;
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 11px;
+      color: #596068;
+      text-align: center;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>✈ Jacob &amp; Ryan's Trip — April 2026</h1>
+  <p>San Francisco → Miami · London · Bath · Cotswolds · Paris → San Francisco</p>
+</header>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#579dff"></div> Flight</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#9f8fef"></div> Hotel</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#f5cd47"></div> Event</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#4bce97"></div> Dining</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#60c6d2"></div> Transport</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#f87168"></div> Wedding / Needs Booking</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#f5cd47; opacity:0.7"></div> Pending Confirmation</div>
+</div>
+
+<div class="board">
+
+  <!-- ─── APR 2: DEPARTURE NIGHT ─── -->
+  <div class="col departure">
+    <div class="col-header">
+      <div class="day-label">Thursday</div>
+      <div class="date-label">Apr 2</div>
+      <span class="location-badge">🏠 San Francisco</span>
+    </div>
+    <div class="col-body">
+      <div class="time-section">Morning</div>
+      <div class="empty-card">Normal day at home</div>
+
+      <div class="time-section">Afternoon</div>
+      <div class="empty-card">Pack & prep</div>
+
+      <div class="time-section">Evening</div>
+      <div class="card flight">
+        <span class="tag flight-tag">FLIGHT</span>
+        <div class="card-title">✈ SFO → Fort Lauderdale</div>
+        <div class="card-detail">UA 1230 · Departs 9:30 PM PDT</div>
+        <div class="card-detail">Arrives 6:09 AM EDT (Apr 3)</div>
+        <div class="card-detail">Jacob: seat 30A · Ryan: seat 30B</div>
+        <div class="card-detail">Conf: DHEXJD</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── APR 3: ARRIVE MIAMI ─── -->
+  <div class="col miami">
+    <div class="col-header">
+      <div class="day-label">Friday</div>
+      <div class="date-label">Apr 3</div>
+      <span class="location-badge">🌴 Miami</span>
+    </div>
+    <div class="col-body">
+      <div class="time-section">Morning</div>
+      <div class="card flight">
+        <span class="tag flight-tag">ARRIVE</span>
+        <div class="card-title">Land Fort Lauderdale — 6:09 AM</div>
+        <div class="card-detail">Jacob &amp; Ryan · UA 1230</div>
+      </div>
+      <div class="card hotel">
+        <span class="tag hotel-tag">CHECK IN</span>
+        <div class="card-title">Pestana South Beach Miami</div>
+        <div class="card-detail">1817 James Ave, Miami Beach</div>
+        <div class="card-detail">Check-in from 4:00 PM · Apr 3–6</div>
+        <div class="card-detail">Superior King · Pool View</div>
+        <div class="card-detail">Code: 26020281774</div>
+      </div>
+
+      <div class="time-section">Afternoon</div>
+      <div class="card event">
+        <span class="tag event-tag">HYROX</span>
+        <div class="card-title">Hyrox Miami — Day 1</div>
+        <div class="card-detail">🏋️ Ryan: competing</div>
+        <div class="card-detail">👀 Jacob: spectating · tickets confirmed</div>
+      </div>
+
+      <div class="time-section">Evening</div>
+      <div class="empty-card">Dinner / explore Miami</div>
+    </div>
+  </div>
+
+  <!-- ─── APR 4: HYROX DAY ─── -->
+  <div class="col miami">
+    <div class="col-header">
+      <div class="day-label">Saturday</div>
+      <div class="date-label">Apr 4</div>
+      <span class="location-badge">🌴 Miami</span>
+    </div>
+    <div class="col-body">
+      <div class="time-section">Morning</div>
+      <div class="card event">
+        <span class="tag event-tag">HYROX</span>
+        <div class="card-title">🏋️ Hyrox Race Day</div>
+        <div class="card-detail">Ryan Fitzgerald competing 💪</div>
+        <div class="card-detail">Jacob spectating · tickets confirmed</div>
+      </div>
+
+      <div class="time-section">Afternoon</div>
+      <div class="card event">
+        <span class="tag event-tag">HYROX</span>
+        <div class="card-title">Continue spectating</div>
+        <div class="card-detail">Cheer Ryan on!</div>
+      </div>
+
+      <div class="time-section">Evening</div>
+      <div class="empty-card">Celebrate with Ryan 🎉</div>
+    </div>
+  </div>
+
+  <!-- ─── APR 5: MIAMI → AIRPORT ─── -->
+  <div class="col miami2">
+    <div class="col-header">
+      <div class="day-label">Sunday</div>
+      <div class="date-label">Apr 5</div>
+      <span class="location-badge">🌴 Miami</span>
+    </div>
+    <div class="col-body">
+      <div class="time-section">Morning</div>
+      <div class="card event">
+        <span class="tag event-tag">HYROX</span>
+        <div class="card-title">Hyrox Miami — Day 3</div>
+        <div class="card-detail">Final day of event</div>
+      </div>
+
+      <div class="time-section">Afternoon</div>
+      <div class="empty-card">Explore Miami / relax</div>
+
+      <div class="time-section">Evening</div>
+      <div class="empty-card">Last night in Miami</div>
+    </div>
+  </div>
+
+  <!-- ─── APR 6: FLY TO LONDON ─── -->
+  <div class="col transit">
+    <div class="col-header">
+      <div class="day-label">Monday</div>
+      <div class="date-label">Apr 6</div>
+      <span class="location-badge">✈ MIA → LHR</span>
+    </div>
+    <div class="col-body">
+      <div class="time-section">Morning</div>
+      <div class="empty-card">Hotel checkout · Pack up</div>
+
+      <div class="time-section">Afternoon</div>
+      <div class="empty-card">Head to Miami airport</div>
+
+      <div class="time-section">Evening</div>
+      <div class="card flight">
+        <span class="tag flight-tag">FLIGHT</span>
+        <div class="card-title">✈ MIA → London Heathrow</div>
+        <div class="card-detail">DL 5966 (op. by Virgin Atlantic)</div>
+        <div class="card-detail">Departs 6:25 PM EDT · Conf: F77XBA</div>
+        <div class="card-detail">Arrives 8:05 AM BST (Apr 7)</div>
+        <div class="card-detail">Jacob: seat 58B · Ryan: same booking</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── APR 7: ARRIVE LONDON ─── -->
+  <div class="col london">
+    <div class="col-header">
+      <div class="day-label">Tuesday</div>
+      <div class="date-label">Apr 7</div>
+      <span class="location-badge">🇬🇧 London</span>
+    </div>
+    <div class="col-body">
+      <div class="time-section">Morning</div>
+      <div class="card flight">
+        <span class="tag flight-tag">ARRIVE</span>
+        <div class="card-title">Land Heathrow — 8:05 AM BST</div>
+        <div class="card-detail">Jacob &amp; Ryan · DL 5966 from Miami</div>
+      </div>
+      <div class="card hotel">
+        <span class="tag hotel-tag">CHECK IN</span>
+        <div class="card-title">Sandy's, London</div>
+        <div class="card-detail">10 Montagu Mews S, W1H 7ER</div>
+        <div class="card-detail">Jacob &amp; Ryan · Apr 7–12</div>
+      </div>
+
+      <div class="time-section">Afternoon</div>
+      <div class="empty-card">Rest / explore Marylebone area</div>
+
+      <div class="time-section">Evening</div>
+      <div class="card food">
+        <span class="tag food-tag">DINNER</span>
+        <div class="card-title">🍽 Fallow Restaurant</div>
+        <div class="card-detail">52 Haymarket, SW1Y 4RP · 7:00 PM</div>
+        <div class="card-detail">Just Jacob &amp; Ryan — confirmed</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── APR 8: BATH DAY TRIP ─── -->
+  <div class="col bath">
+    <div class="col-header">
+      <div class="day-label">Wednesday</div>
+      <div class="date-label">Apr 8</div>
+      <span class="location-badge">🛁 Bath Day Trip</span>
+    </div>
+    <div class="col-body">
+      <div class="time-section">Morning</div>
+      <div class="card travel">
+        <span class="tag travel-tag">TRAIN</span>
+        <div class="card-title">🚂 London Paddington → Bath Spa</div>
+        <div class="card-detail">Departs 06:28 · Arrives 07:44</div>
+        <div class="card-detail">Coach A, Seats 13 &amp; 14</div>
+        <div class="card-detail">Ref B-GWR-ERL0JAU3G</div>
+      </div>
+      <div class="card event">
+        <span class="tag event-tag">BOOKED</span>
+        <div class="card-title">🏛 Roman Baths</div>
+        <div class="card-detail">Entry at 9:15 AM · 2 adults</div>
+        <div class="card-detail">Ref RBOYDP1TXZRDM</div>
+      </div>
+
+      <div class="time-section">Afternoon</div>
+      <div class="card event">
+        <span class="tag event-tag">BOOKED</span>
+        <div class="card-title">♨️ Thermae Bath Spa</div>
+        <div class="card-detail">Hot Bath St, Bath BA1 1SJ · 4:30 PM</div>
+        <div class="card-detail">Jacob &amp; Ryan · Conf #1963102</div>
+      </div>
+      <div class="card food">
+        <span class="tag food-tag">LUNCH</span>
+        <div class="card-title">🍽 La Terra</div>
+        <div class="card-detail">2 John St, Bath BA1 2JL · 12:30 PM</div>
+        <div class="card-detail">2 guests · Table until 2:20 PM</div>
+        <div class="card-detail">Ref BNK36TL9</div>
+      </div>
+
+      <div class="time-section">Evening</div>
+      <div class="card travel">
+        <span class="tag travel-tag">TRAIN</span>
+        <div class="card-title">🚂 Bath Spa → London Paddington</div>
+        <div class="card-detail">Departs 19:43 · Arrives 21:08</div>
+        <div class="card-detail">Coach A, Seats 27 &amp; 28</div>
+        <div class="card-detail">Ref B-GWR-ERL0JAU3G</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── APR 9: LONDON + DISHOOM ─── -->
+  <div class="col london">
+    <div class="col-header">
+      <div class="day-label">Thursday</div>
+      <div class="date-label">Apr 9</div>
+      <span class="location-badge">🇬🇧 London</span>
+    </div>
+    <div class="col-body">
+      <div class="time-section">Morning</div>
+      <div class="empty-card">Free in London</div>
+
+      <div class="time-section">Afternoon</div>
+      <div class="empty-card">Explore the city</div>
+
+      <div class="time-section">Evening</div>
+      <div class="card food">
+        <span class="tag food-tag">DINNER</span>
+        <div class="card-title">🍽 Dishoom Carnaby</div>
+        <div class="card-detail">22 Kingly St, W1B 5QP · 9:00 PM</div>
+        <div class="card-detail">8 guests — friends dinner</div>
+        <div class="card-detail">Res #8EH6NT35UUCF · Ryan's booking</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── APR 10: TRAVEL TO COTSWOLDS ─── -->
+  <div class="col cotswolds">
+    <div class="col-header">
+      <div class="day-label">Friday</div>
+      <div class="date-label">Apr 10</div>
+      <span class="location-badge">🌿 Cotswolds</span>
+    </div>
+    <div class="col-body">
+      <div class="time-section">Morning</div>
+      <div class="empty-card">Last morning in London</div>
+
+      <div class="time-section">Afternoon</div>
+      <div class="card travel">
+        <span class="tag travel-tag">CAR</span>
+        <div class="card-title">🚗 Drive: London → Grittleton</div>
+        <div class="card-detail">Enterprise pickup 12:00 PM · Marylebone</div>
+        <div class="card-detail">NCP Car Park, 170 Marylebone Rd</div>
+        <div class="card-detail">Nissan Qashqai (Auto) · Conf #2101387643</div>
+        <div class="card-detail">Friend returns car to Heathrow Apr 12</div>
+      </div>
+
+      <div class="time-section">Evening</div>
+      <div class="card wedding">
+        <span class="tag wedding-tag">WEDDING</span>
+        <div class="card-title">Arrive: Grittleton House</div>
+        <div class="card-detail">The Stables, Grittleton, Wiltshire</div>
+        <div class="card-detail">Wedding stay — house party weekend</div>
+        <div class="card-detail">Francesca &amp; Keith</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── APR 11: WEDDING DAY ─── -->
+  <div class="col cotswolds">
+    <div class="col-header">
+      <div class="day-label">Saturday</div>
+      <div class="date-label">Apr 11</div>
+      <span class="location-badge">💍 Wedding Day</span>
+    </div>
+    <div class="col-body">
+      <div class="time-section">Morning</div>
+      <div class="card wedding">
+        <span class="tag wedding-tag">WEDDING</span>
+        <div class="card-title">🌸 Francesca &amp; Keith</div>
+        <div class="card-detail">Grittleton House &amp; The Stables</div>
+        <div class="card-detail">Grittleton, Wiltshire</div>
+      </div>
+
+      <div class="time-section">Afternoon</div>
+      <div class="card wedding">
+        <span class="tag wedding-tag">WEDDING</span>
+        <div class="card-title">Ceremony &amp; Reception</div>
+        <div class="card-detail">Celebrate with Francesca &amp; Keith!</div>
+      </div>
+
+      <div class="time-section">Evening</div>
+      <div class="card wedding">
+        <span class="tag wedding-tag">WEDDING</span>
+        <div class="card-title">Wedding dinner &amp; dancing 🎉</div>
+        <div class="card-detail">House party at Grittleton</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── APR 12: LONDON → PARIS ─── -->
+  <div class="col paris">
+    <div class="col-header">
+      <div class="day-label">Sunday</div>
+      <div class="date-label">Apr 12</div>
+      <span class="location-badge">🇫🇷 → Paris</span>
+    </div>
+    <div class="col-body">
+      <div class="time-section">Morning</div>
+      <div class="card hotel">
+        <span class="tag hotel-tag">CHECK OUT</span>
+        <div class="card-title">Check out: Grittleton House</div>
+        <div class="card-detail">End of wedding stay</div>
+      </div>
+
+      <div class="time-section">Afternoon</div>
+      <div class="card travel">
+        <span class="tag travel-tag">TRAIN</span>
+        <div class="card-title">🚂 Chippenham → London Paddington</div>
+        <div class="card-detail">GWR · ~1hr · depart ~9:45–10:00 AM</div>
+        <div class="card-detail">Cab/Tube to St Pancras · arrive by 11:45</div>
+      </div>
+      <div class="card travel">
+        <span class="tag travel-tag">EUROSTAR</span>
+        <div class="card-title">🚄 St Pancras → Paris Gare du Nord</div>
+        <div class="card-detail">Departs 12:31 · Arrives 16:01 Paris time</div>
+        <div class="card-detail">Jacob &amp; Ryan · Standard · £264</div>
+        <div class="card-detail">Ref 6DJ26K</div>
+      </div>
+      <div class="card hotel">
+        <span class="tag hotel-tag">CHECK IN</span>
+        <div class="card-title">Hôtel Le Pigalle</div>
+        <div class="card-detail">9th arrondissement, Paris</div>
+        <div class="card-detail">Apr 12–14 · 2 nights · 2 guests</div>
+        <div class="card-detail">Room: Pigalle 35 · €990 total</div>
+        <div class="card-detail">Conf: 65706SG045052</div>
+      </div>
+
+      <div class="time-section">Evening</div>
+      <div class="card event">
+        <span class="tag event-tag">BOOKED</span>
+        <div class="card-title">🗼 Eiffel Tower — 2nd Floor + 🥂</div>
+        <div class="card-detail">7:30 PM · Jacob &amp; Ryan</div>
+        <div class="card-detail">2nd floor by lift + champagne · €89</div>
+        <div class="card-detail">Purchase #262010165929</div>
+        <div class="card-detail" style="color:#7ee2a8;">✓ Old Apr 6 tickets cancelled · €121.40 refunded</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── APR 13: PARIS DAY ─── -->
+  <div class="col paris">
+    <div class="col-header">
+      <div class="day-label">Monday</div>
+      <div class="date-label">Apr 13</div>
+      <span class="location-badge">🗼 Paris</span>
+    </div>
+    <div class="col-body">
+      <div class="time-section">Morning</div>
+      <div class="card event">
+        <span class="tag event-tag">BOOKED</span>
+        <div class="card-title">🖼 Musée du Louvre</div>
+        <div class="card-detail">Jacob &amp; Ryan · 2 adult tickets</div>
+        <div class="card-detail">Order #C260900001308</div>
+        <div class="card-detail">Sale ref V26078735832</div>
+      </div>
+
+      <div class="time-section">Afternoon</div>
+      <div class="empty-card">Explore Paris ☕</div>
+
+      <div class="time-section">Evening</div>
+      <div class="card food">
+        <span class="tag food-tag">DINNER</span>
+        <div class="card-title">🍽 Ardent Paris</div>
+        <div class="card-detail">40 Rue Richer, 75009 · 8:30 PM</div>
+        <div class="card-detail">Table near window · Anniversary dinner</div>
+        <div class="card-detail">Res #1733397499 · 2 people</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── APR 14: FLY HOME ─── -->
+  <div class="col home">
+    <div class="col-header">
+      <div class="day-label">Tuesday</div>
+      <div class="date-label">Apr 14</div>
+      <span class="location-badge">🏠 Fly Home</span>
+    </div>
+    <div class="col-body">
+      <div class="time-section">Morning</div>
+      <div class="card flight">
+        <span class="tag flight-tag">FLIGHT</span>
+        <div class="card-title">✈ CDG → San Francisco</div>
+        <div class="card-detail">DL 8726 (op. by Air France)</div>
+        <div class="card-detail">Departs 10:20 AM CEST · Conf: F77XBA</div>
+        <div class="card-detail">Arrives 12:50 PM PDT</div>
+        <div class="card-detail">Jacob: seat 33J · Ryan: same booking</div>
+      </div>
+
+      <div class="time-section">Afternoon</div>
+      <div class="card flight">
+        <span class="tag flight-tag">ARRIVE</span>
+        <div class="card-title">Land SFO — 12:50 PM PDT</div>
+        <div class="card-detail">Home! 🎉</div>
+      </div>
+
+      <div class="time-section">Evening</div>
+      <div class="empty-card">Back home in SF</div>
+    </div>
+  </div>
+
+</div>
+
+<div style="margin-top: 24px; padding: 14px 18px; background: #1a2e22; border-radius: 10px; border-left: 4px solid #7ee2a8; max-width: 900px;">
+  <div style="font-size: 13px; font-weight: 700; color: #7ee2a8; margin-bottom: 4px;">✅ All booked — have an incredible trip, Jacob & Ryan!</div>
+  <div style="font-size: 12px; color: #5aac7e;">Miami · London · Bath · Cotswolds · Paris — April 2–14, 2026</div>
+</div>
+
+</body>
+</html>
